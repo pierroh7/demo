@@ -200,7 +200,7 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
         jPanel1.add(jButton2);
         jButton2.setBounds(310, 290, 130, 32);
 
-        jButton5.setText("Profil de l'étudiant");
+        jButton5.setText("Notes de l'étudiant");
         jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton5MouseClicked(evt);
@@ -311,12 +311,28 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
         String classe = txt_class.getSelectedItem().toString();
         
         String requete = "INSERT INTO etudiant(ID, Nom, Prenom, Classe) VALUES ('"+id+"', '"+nom+"', '"+prenom+"', '"+classe+"')";
-        String requete_math = "INSERT INTO notes_math(ID) VALUES ('"+id+"')";
-        String requete_elec = "INSERT INTO notes_elec(ID) VALUES ('"+id+"')";
+        
+        String requete_math = "INSERT INTO notes(ID, Matiere, Semestre) VALUES ('"+id+"', 'math', '1')";
+        String requete_math2 = "INSERT INTO notes(ID, Matiere, Semestre) VALUES ('"+id+"', 'math', '2')";
+        
+        String requete_elec = "INSERT INTO notes(ID, Matiere, Semestre) VALUES ('"+id+"', 'elec', '1')";
+        String requete_elec2 = "INSERT INTO notes(ID, Matiere, Semestre) VALUES ('"+id+"', 'elec', '2')";
+        
+        String requete_info = "INSERT INTO notes(ID, Matiere, Semestre) VALUES ('"+id+"', 'info', '1')";
+        String requete_info2 = "INSERT INTO notes(ID, Matiere, Semestre) VALUES ('"+id+"', 'info', '2')";
+        
+        String requete_lfh = "INSERT INTO notes(ID, Matiere, Semestre) VALUES ('"+id+"', 'lfh', '1')";
+        String requete_lfh2 = "INSERT INTO notes(ID, Matiere, Semestre) VALUES ('"+id+"', 'lfh', '2')";
         try{
             etat.executeUpdate(requete);
             etat.executeUpdate(requete_math);
+            etat.executeUpdate(requete_math2);
             etat.executeUpdate(requete_elec);
+            etat.executeUpdate(requete_elec2);
+            etat.executeUpdate(requete_info);
+            etat.executeUpdate(requete_info2);
+            etat.executeUpdate(requete_lfh);
+            etat.executeUpdate(requete_lfh2);
             
             JOptionPane.showMessageDialog(null, "Etudiant ajouté !"); 
             txt_id.setText("");
@@ -385,7 +401,7 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
     //Notes étudiant
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         // TODO add your handling code here:
-        Profil_Etudiant profil = new Profil_Etudiant(txt_id.getText(), txt_name.getText(), txt_surname.getText(), txt_class.getSelectedItem().toString());
+        Notes_Etudiant_S1 profil = new Notes_Etudiant_S1(txt_id.getText(), txt_name.getText(), txt_surname.getText(), txt_class.getSelectedItem().toString());
         profil.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton5MouseClicked
