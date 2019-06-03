@@ -17,10 +17,10 @@ import modele.Notes_Manip;
  *
  * @author pierr
  */
-public class Notes_Etudiant_S1 extends javax.swing.JFrame {
+public class Notes_Etudiant extends javax.swing.JFrame {
 
     /**
-     * Creates new form Notes_Etudiant_S1
+     * Creates new form Notes_Etudiant
      */
     
     Connexion connect = new Connexion();
@@ -29,7 +29,7 @@ public class Notes_Etudiant_S1 extends javax.swing.JFrame {
     DefaultTableModel tab_notes = new DefaultTableModel();
     
     
-    public Notes_Etudiant_S1(String id, String name, String surname, String classe) {
+    public Notes_Etudiant(String id, String name, String surname, String classe) {
         initComponents();
         String etudiant = name + " " + surname;
         Etudiant.setText(etudiant);
@@ -348,20 +348,20 @@ public class Notes_Etudiant_S1 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Notes_Etudiant_S1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Notes_Etudiant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Notes_Etudiant_S1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Notes_Etudiant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Notes_Etudiant_S1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Notes_Etudiant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Notes_Etudiant_S1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Notes_Etudiant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Notes_Etudiant_S1().setVisible(true);
+                new Notes_Etudiant().setVisible(true);
             }
         });
     }

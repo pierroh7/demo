@@ -171,7 +171,7 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(45, 220, 100, 32);
+        jButton1.setBounds(30, 220, 120, 32);
 
         jButton4.setText("Modifier informations");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -253,9 +253,10 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
     private void txt_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_nameActionPerformed
-
+    //Recherche étudiant
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     
@@ -401,7 +402,7 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
     //Notes étudiant
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         // TODO add your handling code here:
-        Notes_Etudiant_S1 profil = new Notes_Etudiant_S1(txt_id.getText(), txt_name.getText(), txt_surname.getText(), txt_class.getSelectedItem().toString());
+        Notes_Etudiant profil = new Notes_Etudiant(txt_id.getText(), txt_name.getText(), txt_surname.getText(), txt_class.getSelectedItem().toString());
         profil.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton5MouseClicked
@@ -412,13 +413,13 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
 
     /**
      * @param args the command line arguments
-     */
+     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+         
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -440,14 +441,14 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the form 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Gestion_Etudiants_par_Prof gestion = new Gestion_Etudiants_par_Prof();               
                 gestion.setVisible(true);
             }
         });
-    }
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

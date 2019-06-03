@@ -17,6 +17,8 @@ public class Gestion_Ecole {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Gestion_Etudiants_par_Prof gestion = new Gestion_Etudiants_par_Prof();               
+                gestion.setVisible(true);
     }
     
 }

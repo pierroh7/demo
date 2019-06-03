@@ -1,0 +1,4 @@
+-Gestion : la recherche d'étudiants avec une info
+-Notes : ajout d'une note
+-Affichage : faire sous-programme actualiser (pour éviter copier-coller)
+
