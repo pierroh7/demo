@@ -165,6 +165,11 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
         jPanel3.setBounds(230, 50, 440, 240);
 
         jButton1.setText("Rechercher");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -231,7 +236,8 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-   
+    
+    //Pour récupérer les valeurs cliquées dans le tableau
     private void deplace(int i){
         try{
             txt_id.setText(default_table.getValueAt(i,0).toString());
@@ -245,7 +251,8 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
         
         
     }
-    
+    //**********
+    //Les inutiles ratés 
     private void txt_surnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_surnameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_surnameActionPerformed
@@ -253,13 +260,14 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
     private void txt_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_nameActionPerformed
-    //Recherche étudiant
+    //**********
+
+    //Rechercher un étudiant par ID ou rechercher une classe entière
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    
+   
     //Selection dans tableau
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
         // TODO add your handling code here:
@@ -279,22 +287,9 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
                     JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION){
                 etat.executeUpdate("UPDATE etudiant SET Nom='"+txt_name.getText()+"',Prenom='"+txt_surname.getText()+"', Classe='"+txt_class.getSelectedItem().toString()+"' WHERE ID="+txt_id.getText());
                 }
+            
                 //Code d'actualisation du tableau 
-                //*******
-                try{
-                    default_table.setRowCount(0);
-                    etat=(Statement) connect.getConnection().createStatement();
-                    result = etat.executeQuery("Select * from etudiant");
-                    while(result.next()){
-                        default_table.addRow(new Object[]{result.getString("ID"), result.getString("Nom"),
-                        result.getString("Prenom"),result.getString("Classe")});
-                    }
-                }catch(Exception e){
-                    System.out.println(e);
-                }
-              
-                table.setModel(default_table);
-                //*******
+                mise_a_jour();
                 
             
         }catch(Exception e){
@@ -342,21 +337,8 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
             txt_class.setSelectedItem(1);
             
             //Code d'actualisation du tableau
-            //*******
-            try{
-                default_table.setRowCount(0);
-                etat=(Statement) connect.getConnection().createStatement();
-                result = etat.executeQuery("Select * from etudiant");
-                while(result.next()){
-                    default_table.addRow(new Object[]{result.getString("ID"), result.getString("Nom"),
-                    result.getString("Prenom"),result.getString("Classe")});
-                }
-            }catch(Exception e){
-                System.out.println(e);
-            }
-
-            table.setModel(default_table);
-            //*******
+            mise_a_jour();
+            
         }catch(Exception e){
             JOptionPane.showMessageDialog(null,e.getMessage());}  
     }//GEN-LAST:event_jButton2MouseClicked
@@ -369,29 +351,14 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
                     JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION){
                 if(txt_id.getText().length() != 0){
                     etat.executeUpdate("DELETE FROM etudiant WHERE ID="+txt_id.getText());
-                    etat.executeUpdate("DELETE FROM notes_math WHERE ID="+txt_id.getText());
-                    etat.executeUpdate("DELETE FROM notes_elec WHERE ID="+txt_id.getText());
+                    etat.executeUpdate("DELETE FROM notes WHERE ID="+txt_id.getText());
                 }else{
                     JOptionPane.showMessageDialog(null, "Merci de remplir le champ ID svp");
                 }
             }
             
             //Code d'actualisation du tableau
-            //*******
-            try{
-                default_table.setRowCount(0);
-                etat=(Statement) connect.getConnection().createStatement();
-                result = etat.executeQuery("Select * from etudiant");
-                while(result.next()){
-                    default_table.addRow(new Object[]{result.getString("ID"), result.getString("Nom"),
-                    result.getString("Prenom"),result.getString("Classe")});
-                }
-            }catch(Exception e){
-                System.out.println(e);
-            }
-
-            table.setModel(default_table);
-            //*******
+            mise_a_jour();
             
         }catch(Exception e){
             
@@ -407,10 +374,69 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton5MouseClicked
 
+    //**********
+    //Inutile
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:    
+        
     }//GEN-LAST:event_jButton5ActionPerformed
+    //**********
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+                // TODO add your handling code here:
+        try{
+            default_table.setRowCount(0);
+            {
+                if((txt_id.getText()).equals("")){
+                    result = etat.executeQuery("SELECT * FROM ecole WHERE Classe='"+txt_class.getSelectedItem()+"'");
+                    
+                    //Affichage correspondant de la base
+                    while(result.next()){
+                        Object[] recherche = {result.getString("ID"), result.getString("Nom"),result.getString("Prenom"),result.getString("Classe")};
+                        default_table.addRow(recherche);
+                    }
+                    
+                
+                
+            }else {
+                result = etat.executeQuery("SELECT * FROM ecole WHERE ID='"+txt_id.getText()+"'");
+                
+                //Affichage correspondant de la base
+                while(result.next()){
+                    Object[] recherche = {result.getString("ID"), result.getString("Nom"),result.getString("Prenom"),result.getString("Classe")};
+                    default_table.addRow(recherche);
+                }
+                if(default_table.getRowCount() == 0) {JOptionPane.showMessageDialog(null, "Pas d'étudiant correspondant");}
+                
+            }
+            }
+            
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        
+        
+    }//GEN-LAST:event_jButton1MouseClicked
+    
+    
+    //Code d'actualisation du tableau
+    public void mise_a_jour(){
+        try{
+                default_table.setRowCount(0);
+                etat=(Statement) connect.getConnection().createStatement();
+                result = etat.executeQuery("Select * from etudiant");
+                
+                //Stock  des données souhaitées de la base dans le tableau
+                while(result.next()){
+                    default_table.addRow(new Object[]{result.getString("ID"), result.getString("Nom"),
+                    result.getString("Prenom"),result.getString("Classe")});
+                }
+            }catch(Exception e){
+                System.out.println(e);
+            }
 
+            table.setModel(default_table);
+    }
     /**
      * @param args the command line arguments
      

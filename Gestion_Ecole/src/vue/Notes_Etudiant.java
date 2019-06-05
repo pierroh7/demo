@@ -277,22 +277,7 @@ public class Notes_Etudiant extends javax.swing.JFrame {
             txt_semestre.setSelectedItem("math");
             
             //Code d'actualisation du tableau
-            //*******
-            try{
-                tab_notes.setRowCount(0);
-                etat=(Statement) connect.getConnection().createStatement();
-                result = etat.executeQuery("SELECT * from notes WHERE ID="+ID.getText());
-                while(result.next()){
-                tab_notes.addRow(new Object[]{result.getString("Matiere"), result.getInt("Semestre"), result.getString("DS1"), result.getString("DS2"),
-                    result.getString("NS1"),result.getString("NS2")});
-                }
-
-            }catch(Exception e){
-                System.out.println(e);
-            }
-        
-            notes.setModel(tab_notes);
-            //*******
+            mise_a_jour();
         
         }catch(Exception e){
             JOptionPane.showMessageDialog(null,e.getMessage());}  
@@ -306,22 +291,7 @@ public class Notes_Etudiant extends javax.swing.JFrame {
                 etat.executeUpdate("UPDATE notes SET DS1='"+txt_ds1.getText()+"', DS2='"+txt_ds2.getText()+"', NS1='"+txt_ns1.getText()+"', NS2='"+txt_ns2.getText()+"' WHERE ID='"+ID.getText()+"' AND Matiere='"+txt_matiere.getSelectedItem().toString()+"' AND Semestre='"+txt_semestre.getSelectedItem().toString()+"'");
                 }
                 //Code d'actualisation du tableau 
-                //*******
-                try{
-                    tab_notes.setRowCount(0);
-                    etat=(Statement) connect.getConnection().createStatement();
-                result = etat.executeQuery("SELECT * from notes WHERE ID="+ID.getText());
-                while(result.next()){
-                    tab_notes.addRow(new Object[]{result.getString("Matiere"), result.getInt("Semestre"), result.getString("DS1"), result.getString("DS2"),
-                        result.getString("NS1"),result.getString("NS2")});
-                    }
-
-                }catch(Exception e){
-                    System.out.println(e);
-                }
-
-                notes.setModel(tab_notes);
-                //*******
+                mise_a_jour();
                 
             
         }catch(Exception e){
@@ -330,6 +300,23 @@ public class Notes_Etudiant extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_modif_notesMouseClicked
 
+    public void mise_a_jour(){
+        try{
+            tab_notes.setRowCount(0);
+            etat=(Statement) connect.getConnection().createStatement();
+            result = etat.executeQuery("SELECT * from notes WHERE ID="+ID.getText());
+            while(result.next()){
+                tab_notes.addRow(new Object[]{result.getString("Matiere"), result.getInt("Semestre"), result.getString("DS1"), result.getString("DS2"),
+                    result.getString("NS1"),result.getString("NS2")});
+                }
+
+            }catch(Exception e){
+                System.out.println(e);
+            }
+
+            notes.setModel(tab_notes);
+    }
+    
     /**
      * @param args the command line arguments
      */
