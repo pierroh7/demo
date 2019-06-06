@@ -24,7 +24,7 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
      */
     Connexion connect = new Connexion();
     Statement etat;
-    ResultSet result;
+    ResultSet result; //Utilisé pour les requêtes SELECT
     DefaultTableModel default_table = new DefaultTableModel();
     
     
@@ -35,6 +35,7 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
         default_table.addColumn("Nom");
         default_table.addColumn("Prenom");
         default_table.addColumn("Classe");
+        default_table.addColumn("Promo");
         
         //Communication et affichage de la base de données
         try{
@@ -42,7 +43,7 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
             result = etat.executeQuery("Select * from etudiant");
             while(result.next()){
                 default_table.addRow(new Object[]{result.getString("ID"), result.getString("Nom"),
-                result.getString("Prenom"),result.getString("Classe")});
+                result.getString("Prenom"),result.getString("Classe"),result.getString("Promo")});
             }
         }catch(Exception e){
             System.out.println(e);
@@ -70,17 +71,25 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
         txt_surname = new javax.swing.JTextField();
         txt_id = new javax.swing.JTextField();
         txt_class = new javax.swing.JComboBox<>();
-        jPanel3 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        txt_promo = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        recherche_id = new javax.swing.JTextField();
+        recherche_classe = new javax.swing.JComboBox<>();
+        recherche_promo = new javax.swing.JComboBox<>();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1200, 980));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 600));
         jPanel1.setLayout(null);
@@ -125,8 +134,16 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
         jPanel2.add(txt_class);
         txt_class.setBounds(70, 95, 110, 30);
 
+        jLabel6.setText("Promo");
+        jPanel2.add(jLabel6);
+        jLabel6.setBounds(0, 130, 60, 16);
+
+        txt_promo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ING1", "ING2", "ING3", "ING4", "ING5" }));
+        jPanel2.add(txt_promo);
+        txt_promo.setBounds(70, 130, 110, 26);
+
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(10, 80, 210, 140);
+        jPanel2.setBounds(30, 130, 200, 170);
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -146,42 +163,10 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(table);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(280, 110, 640, 250);
 
-        jPanel1.add(jPanel3);
-        jPanel3.setBounds(230, 50, 440, 240);
-
-        jButton1.setText("Rechercher");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1);
-        jButton1.setBounds(30, 220, 120, 32);
-
-        jButton4.setText("Modifier informations");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton4);
-        jButton4.setBounds(20, 300, 160, 32);
-
+        jButton3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButton3.setText("Supprimer étudiant");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -189,8 +174,9 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton3);
-        jButton3.setBounds(480, 290, 140, 32);
+        jButton3.setBounds(720, 390, 170, 50);
 
+        jButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButton2.setText("Ajouter étudiant");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -198,54 +184,122 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(310, 290, 130, 32);
+        jButton2.setBounds(480, 390, 160, 50);
 
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel5.setText("Liste des étudiants");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(380, 10, 250, 40);
+
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel7.setText("Par classe :");
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(590, 80, 100, 30);
+
+        jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel8.setText("Par ID : ");
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(280, 80, 60, 30);
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel9.setText("Par Promo :");
+        jPanel1.add(jLabel9);
+        jLabel9.setBounds(420, 80, 90, 30);
+        jPanel1.add(recherche_id);
+        recherche_id.setBounds(340, 86, 70, 24);
+
+        recherche_classe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "   ", "TD 1", "TD 2", "TD 3", "TD 4" }));
+        jPanel1.add(recherche_classe);
+        recherche_classe.setBounds(680, 85, 90, 26);
+
+        recherche_promo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "   ", "ING1", "ING2", "ING3", "ING4", "ING5" }));
+        jPanel1.add(recherche_promo);
+        recherche_promo.setBounds(510, 85, 56, 26);
+
+        jButton4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButton4.setText("Modifier informations");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jButton4);
+        jButton4.setBounds(20, 340, 200, 50);
+
+        jButton5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButton5.setText("Notes de l'étudiant");
         jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton5MouseClicked(evt);
             }
         });
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+        jPanel1.add(jButton5);
+        jButton5.setBounds(30, 410, 180, 50);
+
+        jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vue/rechercher.jpg"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
             }
         });
-        jPanel1.add(jButton5);
-        jButton5.setBounds(25, 260, 150, 32);
-
-        jLabel5.setText("Liste des étudiants");
-        jPanel1.add(jLabel5);
-        jLabel5.setBounds(310, 10, 110, 30);
+        jPanel1.add(jButton1);
+        jButton1.setBounds(800, 80, 40, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 967, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-   
-    private void deplace(int i){
+
+//GEN-FIRST:event_jButton2MouseClicked
+ 
+//GEN-LAST:event_jButton2MouseClicked
+
+    //Suppression étudiant
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
         try{
-            txt_id.setText(default_table.getValueAt(i,0).toString());
-            txt_name.setText(default_table.getValueAt(i,1).toString());
-            txt_surname.setText(default_table.getValueAt(i,2).toString());
-            txt_class.setSelectedItem(default_table.getValueAt(i,3).toString());
-        }catch(Exception e){
-            System.out.println(e);
-            JOptionPane.showMessageDialog(null, "erreur de deplacment "+e.getLocalizedMessage());
+            if (JOptionPane.showConfirmDialog (null, "Voulez-vous vraiment supprimer un étudiant ?", "supprimer étudiant",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION){
+            if(txt_id.getText().length() != 0){
+                etat.executeUpdate("DELETE FROM etudiant WHERE ID="+txt_id.getText());
+                etat.executeUpdate("DELETE FROM notes WHERE ID="+txt_id.getText());
+            }else{
+                JOptionPane.showMessageDialog(null, "Merci de remplir le champ ID svp");
+            }
         }
-        
-        
-    }
-    
+
+        //Code d'actualisation du tableau
+        mise_a_jour();
+
+        }catch(Exception e){
+
+        }
+    }//GEN-LAST:event_jButton3MouseClicked
+
+    //Sélection dans le tableau
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        // TODO add your handling code here:
+        try{
+            int i = table.getSelectedRow();
+            select(i);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "erreur de deplacement " + e.getLocalizedMessage());
+        }
+    }//GEN-LAST:event_tableMouseClicked
+
+    //**********
+    //Les inutiles ratés 
     private void txt_surnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_surnameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_surnameActionPerformed
@@ -253,59 +307,91 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
     private void txt_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_nameActionPerformed
-    //Recherche étudiant
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+    //**********
     
-    //Selection dans tableau
-    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+    //Modification des étudiants
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         // TODO add your handling code here:
-        try{
-            int i = table.getSelectedRow();
-            deplace(i);
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "erreur de deplacement " + e.getLocalizedMessage());
-        }
-    }//GEN-LAST:event_tableMouseClicked
-    
-    //Modifier étudiant
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        try{
+            try{
             if (JOptionPane.showConfirmDialog (null, "Enregistrer la modification ?", "modif", 
                     JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION){
                 etat.executeUpdate("UPDATE etudiant SET Nom='"+txt_name.getText()+"',Prenom='"+txt_surname.getText()+"', Classe='"+txt_class.getSelectedItem().toString()+"' WHERE ID="+txt_id.getText());
                 }
                 //Code d'actualisation du tableau 
-                //*******
-                try{
-                    default_table.setRowCount(0);
-                    etat=(Statement) connect.getConnection().createStatement();
-                    result = etat.executeQuery("Select * from etudiant");
-                    while(result.next()){
-                        default_table.addRow(new Object[]{result.getString("ID"), result.getString("Nom"),
-                        result.getString("Prenom"),result.getString("Classe")});
-                    }
-                }catch(Exception e){
-                    System.out.println(e);
-                }
-              
-                table.setModel(default_table);
-                //*******
+               mise_a_jour();
                 
             
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Modification non-effectuée " +e.getMessage());
             System.out.println(e);
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
-    
-    //Ajout étudiant
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    }//GEN-LAST:event_jButton4MouseClicked
+
+    //Affichage des notes 
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         // TODO add your handling code here:
+        Notes_Etudiant profil = new Notes_Etudiant(txt_id.getText(), txt_name.getText(), txt_surname.getText(), txt_class.getSelectedItem().toString());
+        profil.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton5MouseClicked
+
+    //Recherche
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        String request_id="";
+        String request_promo="";
+        String request_classe="";
+        
+        if(!recherche_classe.getSelectedItem().toString().equals("   ") && recherche_promo.getSelectedItem().toString().equals("   ") && recherche_id.getText().equals("")){
+            request_classe = " WHERE Classe = '"+recherche_classe.getSelectedItem().toString()+"'";
+        }
+        else if(!recherche_classe.getSelectedItem().toString().equals("   ") && !recherche_promo.getSelectedItem().toString().equals("   ") && recherche_id.getText().equals("")){
+            request_classe = " WHERE Classe = '"+recherche_classe.getSelectedItem().toString()+"'";
+        }
+        else if ( (!recherche_classe.getSelectedItem().toString().equals("   ") && !recherche_id.getText().equals("")) || (!recherche_classe.getSelectedItem().toString().equals("   ") && !recherche_promo.getSelectedItem().toString().equals("   ")) ){
+            request_classe = " AND Classe = '"+recherche_classe.getSelectedItem().toString()+"'";
+        }
+        else{request_classe = "";}
+        
+        
+        if(!recherche_promo.getSelectedItem().toString().equals("   ") && recherche_classe.getSelectedItem().toString().equals("   ") && recherche_id.getText().equals("")){
+            request_promo = " WHERE Promo = '"+recherche_promo.getSelectedItem().toString()+"'";
+        }
+        else if( (!recherche_promo.getSelectedItem().toString().equals("   ") && !recherche_id.getText().equals("")) || (!recherche_promo.getSelectedItem().toString().equals("   ") && !recherche_classe.getSelectedItem().toString().equals("   "))){
+            request_promo = " AND Promo = '"+recherche_promo.getSelectedItem().toString()+"'";
+        }
+        else{request_promo = "";}
+        
+        
+        if(!recherche_id.getText().equals("")){request_id = " WHERE ID = '"+recherche_id.getText()+"'";}
+        else{request_id = "";}
+        
+        
+        try{
+            default_table.setRowCount(0);
+            
+            {result = etat.executeQuery("SELECT * FROM etudiant" + request_id + request_classe + request_promo);}
+            while (result.next()){
+                Object [] etudiant = {result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5)};
+                default_table.addRow(etudiant);
+            }
+            if(default_table.getRowCount() == 0){
+                JOptionPane.showMessageDialog(null, "Pas d'étudiant(s) correspondant(s)");
+            }else{
+                int i=0;
+                select(i);
+            }
+                    
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    
+    
+   
+    //Ajouter étudiant
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt){
         String id = txt_id.getText();
         String nom = txt_name.getText();
         String prenom = txt_surname.getText();
@@ -342,46 +428,39 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
             txt_class.setSelectedItem(1);
             
             //Code d'actualisation du tableau
-            //*******
-            try{
-                default_table.setRowCount(0);
-                etat=(Statement) connect.getConnection().createStatement();
-                result = etat.executeQuery("Select * from etudiant");
-                while(result.next()){
-                    default_table.addRow(new Object[]{result.getString("ID"), result.getString("Nom"),
-                    result.getString("Prenom"),result.getString("Classe")});
-                }
-            }catch(Exception e){
-                System.out.println(e);
-            }
-
-            table.setModel(default_table);
-            //*******
+            mise_a_jour();
+            
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null,e.getMessage());}  
-    }//GEN-LAST:event_jButton2MouseClicked
+            JOptionPane.showMessageDialog(null,e.getMessage());}
+    }
     
-    //Suppression étudiant
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        // TODO add your handling code here:
+
+    
+    
+    //Pour récupérer les valeurs cliquées dans le tableau
+    private void select(int i){
         try{
-            if (JOptionPane.showConfirmDialog (null, "Voulez-vous vraiment supprimer un étudiant ?", "supprimer étudiant", 
-                    JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION){
-                if(txt_id.getText().length() != 0){
-                    etat.executeUpdate("DELETE FROM etudiant WHERE ID="+txt_id.getText());
-                    etat.executeUpdate("DELETE FROM notes_math WHERE ID="+txt_id.getText());
-                    etat.executeUpdate("DELETE FROM notes_elec WHERE ID="+txt_id.getText());
-                }else{
-                    JOptionPane.showMessageDialog(null, "Merci de remplir le champ ID svp");
-                }
-            }
-            
-            //Code d'actualisation du tableau
-            //*******
-            try{
+            txt_id.setText(default_table.getValueAt(i,0).toString());
+            txt_name.setText(default_table.getValueAt(i,1).toString());
+            txt_surname.setText(default_table.getValueAt(i,2).toString());
+            txt_class.setSelectedItem(default_table.getValueAt(i,3).toString());
+            txt_promo.setSelectedItem(default_table.getValueAt(i,4).toString());
+        }catch(Exception e){
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "erreur de deplacment "+e.getLocalizedMessage());
+        }
+        
+        
+    }
+    
+    //Code d'actualisation du tableau
+    public void mise_a_jour(){
+        try{
                 default_table.setRowCount(0);
                 etat=(Statement) connect.getConnection().createStatement();
                 result = etat.executeQuery("Select * from etudiant");
+                
+                //Stock  des données souhaitées de la base dans le tableau
                 while(result.next()){
                     default_table.addRow(new Object[]{result.getString("ID"), result.getString("Nom"),
                     result.getString("Prenom"),result.getString("Classe")});
@@ -391,26 +470,7 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
             }
 
             table.setModel(default_table);
-            //*******
-            
-        }catch(Exception e){
-            
-        }
-    }//GEN-LAST:event_jButton3MouseClicked
-
-    
-    //Notes étudiant
-    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
-        // TODO add your handling code here:
-        Notes_Etudiant profil = new Notes_Etudiant(txt_id.getText(), txt_name.getText(), txt_surname.getText(), txt_class.getSelectedItem().toString());
-        profil.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton5MouseClicked
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
-
+    }
     /**
      * @param args the command line arguments
      
@@ -461,14 +521,21 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> recherche_classe;
+    private javax.swing.JTextField recherche_id;
+    private javax.swing.JComboBox<String> recherche_promo;
     private javax.swing.JTable table;
     private javax.swing.JComboBox<String> txt_class;
     private javax.swing.JTextField txt_id;
     private javax.swing.JTextField txt_name;
+    private javax.swing.JComboBox<String> txt_promo;
     private javax.swing.JTextField txt_surname;
     // End of variables declaration//GEN-END:variables
 

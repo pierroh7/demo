@@ -7,3 +7,10 @@
 
 
 -Coder l'historique
+
+
+-Profil étudiant
+-Profil prof
+
+
+-Méthode moyenne_notes
