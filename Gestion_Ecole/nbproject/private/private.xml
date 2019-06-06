@@ -3,9 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/pierr/Documents/ING3/JAVA/Porjet_Java_Zaimi_Lankman_Miroite/Gestion_Ecole/test/Gestion_Notes_Etudiants_par_Prof.java</file>
-            <file>file:/C:/Users/pierr/Documents/ING3/JAVA/Porjet_Java_Zaimi_Lankman_Miroite/Gestion_Ecole/src/gestion_ecole/Gestion_Ecole.java</file>
-            <file>file:/C:/Users/pierr/Documents/ING3/JAVA/Porjet_Java_Zaimi_Lankman_Miroite/Gestion_Ecole/src/gestion_ecole/Connexion.java</file>
+            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Discipline.java</file>
+            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Classe.java</file>
+            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Niveau.java</file>
+            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Eleve.java</file>
+            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Note.java</file>
+            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Enseignant.java</file>
+            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Matiere.java</file>
+            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Personne.java</file>
+            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Ecole.java</file>
         </group>
     </open-files>
 </project-private>
