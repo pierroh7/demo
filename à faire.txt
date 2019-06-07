@@ -1,7 +1,4 @@
--Connexion : en admin ou élève
-
--Coder l'historique  oui
-
+-Connexion : en admin, prof ou élève
 
 -Profil étudiant
 -Profil prof
