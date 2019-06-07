@@ -5,26 +5,29 @@
  */
 package Modele;
 
-import java.util.*;
+import java.util.HashMap;
+
 
 /**
  *
  * @author Nathan
  */
-class Eleve extends Personne {
-
-    private String classe;
-    private String niveau;
-    private ArrayList<Matiere> matieres;
-
-    public Eleve(int _ID, int _acces, String _nom, String _prenom, String _classe, String _niveau) {
-        super(_ID, _acces, _nom, _prenom);
-    }
-
+public class Eleve extends Personne {
+    
+    // Un élève possède plus d'une inscription (sur plusieurs années)
+    private HashMap<Integer, Inscription> classes;
+    
     public Eleve() {}
+    
+    public Eleve(int _ID, int _acces, String _nom, String _prenom) {
+        super(_ID, _acces, _nom, _prenom);
+        DAO<Inscription> inscriptionDAO = DAOFactory.getInscriptionDAO();
+        this.classes = new HashMap<>(((InscriptionDAO) inscriptionDAO).getTableSpecID(this.ID));
+    }
 
-    public Eleve(int id, String string, String string0) {
+    public Eleve(Eleve e) {
+        super(e.getID(), e.getAcces(), e.getNom(), e.getPrenom());
     }
     
-    
+    public HashMap<Integer, Inscription> getClasses() { return this.classes; }
 }

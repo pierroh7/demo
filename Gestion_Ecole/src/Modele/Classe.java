@@ -5,15 +5,12 @@
  */
 package Modele;
 
-import java.util.*;
-
 /**
  *
  * @author Nathan
  */
 public class Classe {
-    
     private int ID;
-    private HashMap<Integer, Eleve> eleves;
-    private ArrayList<Integer> IDEnseignants;
+    private int ID_niveau;
+    private int ID_Annee;
 }

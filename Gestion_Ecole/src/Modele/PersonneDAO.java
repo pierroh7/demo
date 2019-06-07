@@ -5,10 +5,47 @@
  */
 package Modele;
 
+import java.sql.Connection;
+import java.util.HashMap;
+
 /**
  *
  * @author Nathan
  */
-public class PersonneDAO {
+public class PersonneDAO extends DAO<Personne>  {
+
+    public PersonneDAO(Connection conn) {
+        super(conn);
+    }
+    
+    @Override
+    public boolean create(Personne o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean delete(int ID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean update(Personne o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Personne find(int ID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getNbRows() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public HashMap<Integer, Personne> getTable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

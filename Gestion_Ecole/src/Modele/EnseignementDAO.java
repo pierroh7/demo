@@ -6,6 +6,7 @@
 package Modele;
 
 import java.sql.Connection;
+import java.util.HashMap;
 
 /**
  *
@@ -13,8 +14,8 @@ import java.sql.Connection;
  */
 public class EnseignementDAO extends DAO<Enseignement> {
 
-    public EnseignementDAO(Connection connexion) {
-        super(connexion);
+    public EnseignementDAO(Connection conn) {
+        super(conn);
     }
 
     @Override
@@ -34,6 +35,16 @@ public class EnseignementDAO extends DAO<Enseignement> {
 
     @Override
     public Enseignement find(int ID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getNbRows() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public HashMap<Integer, Enseignement> getTable() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

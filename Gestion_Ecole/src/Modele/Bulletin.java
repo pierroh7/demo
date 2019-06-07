@@ -5,15 +5,15 @@
  */
 package Modele;
 
-import java.util.*;
+import java.util.HashMap;
 
 /**
  *
  * @author Nathan
  */
-class Matiere {
+public class Bulletin {
     private int ID;
-    private String nom;
-    private ArrayList<Note> notes;
-    private double moyenne;
+    private int ID_Inscription;
+    private int ID_Trimestre;
+    private HashMap<Integer, DetailBulletin> detailsBulletin;
 }

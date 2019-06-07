@@ -5,15 +5,13 @@
  */
 package Modele;
 
-import java.util.*;
 
 /**
  *
  * @author Nathan
  */
-class Discipline {
+public class Discipline {
     
     private int ID;
-    private ArrayList<String> nomMatieres;
-    private ArrayList<Enseignant> enseignants;
+    private String nom;
 }

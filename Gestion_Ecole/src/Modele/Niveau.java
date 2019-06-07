@@ -5,8 +5,6 @@
  */
 package Modele;
 
-import java.util.*;
-
 /**
  *
  * @author Nathan
@@ -14,5 +12,5 @@ import java.util.*;
 public class Niveau {
     
     private int ID;
-    private ArrayList<Classe> classes;
+    private String nom;
 }

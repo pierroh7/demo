@@ -12,37 +12,22 @@ import java.sql.*;
  */
 public class DAOFactory {
 
-    protected static final Connection conn = Connexion.getConnection();
+    protected static final Connection conn = Connexion.getConnexion();
 
     /**
      *
      * @return DAO
      */
-    public static DAO getClasseDAO() {
-        return new ClasseDAO(conn);
-    }
+    public static DAO getBulletinDAO() { return new BulletinDAO(conn); }
+    public static DAO getClasseDAO() { return new ClasseDAO(conn); }
+    public DAO getDetailBulletinDAO() { return new DetailBulletinDAO(conn); }
+    public static DAO getDirecteurDAO() { return new DirecteurDAO(conn); }
+    public static DAO getDisciplineDAO() { return new DisciplineDAO(conn); }
+    public static DAO getEcoleDAO() { return new EcoleDAO(conn); }
+    public static DAO getEleveDAO() { return new EleveDAO(conn); }
+    public static DAO getEnseignantDAO() { return new EnseignantDAO(conn); }
+    public static DAO getEnseignementDAO() { return new EnseignementDAO(conn); }
+    public static DAO getEvaluationDAO() { return new EvaluationDAO(conn); }
+    public static DAO getInscriptionDAO() { return new InscriptionDAO(conn); }
 
-    /**
-     *
-     * @return DAO
-     */
-    public static DAO getEnseignantDAO() {
-        return new EnseignantDAO(conn);
-    }
-
-    /**
-     *
-     * @return DAO
-     */
-    public static DAO getEleveDAO() {
-        return new EleveDAO(conn);
-    }
-
-    /**
-     *
-     * @return DAO
-     */
-    public static DAO getDisciplineDAO() {
-        return new DisciplineDAO(conn);
-    }
 }

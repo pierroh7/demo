@@ -6,19 +6,22 @@
 package Modele;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 /**
  *
  * @author Nathan
  */
-public class NiveauDAO extends DAO<Niveau> {
+public class DirecteurDAO extends DAO<Directeur> {
 
-    public NiveauDAO(Connection conn) {
+    public DirecteurDAO(Connection conn) {
         super(conn);
     }
+
     @Override
-    public boolean create(Niveau o) {
+    public boolean create(Directeur o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -28,12 +31,12 @@ public class NiveauDAO extends DAO<Niveau> {
     }
 
     @Override
-    public boolean update(Niveau o) {
+    public boolean update(Directeur o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Niveau find(int ID) {
+    public Directeur find(int ID) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -43,8 +46,16 @@ public class NiveauDAO extends DAO<Niveau> {
     }
 
     @Override
-    public HashMap<Integer, Niveau> getTable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public HashMap<Integer, Directeur> getTable() {
+        HashMap<Integer, Directeur> directeurs = new HashMap<>();
+        try {
+            ResultSet result = this.co.createStatement().executeQuery("SELECT * FROM personne WHERE Type = 'Directeur'");
+            while(result.next()) {
+                int ID = result.getInt("ID");
+                directeurs.put(ID, new Directeur(ID, 2, result.getString("Nom"), result.getString("Prenom")));
+            }
+        } catch (SQLException ex) {}
+
+        return directeurs;
     }
-    
 }

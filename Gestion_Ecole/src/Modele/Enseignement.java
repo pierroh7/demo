@@ -5,17 +5,16 @@
  */
 package Modele;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author Nathan
  */
 public class Enseignement {
     private int ID;
+    private int ID_Discipline;
+    private int ID_Enseignant;
+    private int ID_Classe;
     private String nom;
-    private ArrayList<Note> notes;
-    private double moyenne;
     
-    public Enseignant() {}
+    
 }

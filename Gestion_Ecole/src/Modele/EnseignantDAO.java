@@ -6,6 +6,7 @@
 package Modele;
 
 import java.sql.*;
+import java.util.HashMap;
 
 
 /**
@@ -60,5 +61,24 @@ public class EnseignantDAO extends DAO<Enseignant> {
             e.printStackTrace();
         }
         return enseignant;
+    }
+
+    @Override
+    public int getNbRows() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public HashMap<Integer, Enseignant> getTable() {
+        HashMap<Integer, Enseignant> profs = new HashMap<>();
+        try {
+            ResultSet result = this.co.createStatement().executeQuery("SELECT * FROM personne WHERE Type = 'Enseignant'");
+            while(result.next()) {
+                int ID = result.getInt("ID");
+                profs.put(ID, new Enseignant(ID, 1, result.getString("Nom"), result.getString("Prenom")));
+            }
+        } catch (SQLException ex) {}
+
+        return profs;
     }
 }

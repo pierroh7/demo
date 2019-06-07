@@ -5,6 +5,7 @@
  */
 package Modele;
 import java.sql.*;
+import java.util.HashMap;
 
 
 
@@ -37,5 +38,15 @@ public class ClasseDAO extends DAO<Classe> {
     public Classe find(int ID) {
         Classe classe = new Classe();
         return classe;
+    }
+
+    @Override
+    public int getNbRows() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public HashMap<Integer, Classe> getTable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

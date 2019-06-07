@@ -9,7 +9,7 @@ package Modele;
  *
  * @author Nathan
  */
-class Personne {
+public class Personne {
     
     protected int ID;
     protected int acces;
@@ -23,4 +23,13 @@ class Personne {
         this.nom = _nom;
         this.prenom = _prenom;
     }
+    
+    public int getID() { return this.ID; }
+    public int getAcces() { return this.acces; }
+    public String getNom() { return this.nom; }
+    public String getPrenom() { return this.prenom; }
+    
+    public void setID(int val) { this.ID = val; }
+    public void setNom(String val) { this.nom = val; }
+    public void setPrenom(String val) { this.prenom = val; }
 }

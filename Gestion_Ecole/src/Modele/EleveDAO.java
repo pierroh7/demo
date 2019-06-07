@@ -5,6 +5,9 @@
  */
 package Modele;
 import java.sql.*;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -34,15 +37,12 @@ public class EleveDAO extends DAO<Eleve> {
     @Override
     public Eleve find(int ID) {
         Eleve eleve = new Eleve();
-
         try {
-            ResultSet result = this.co.createStatement(
-                    ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY
-            ).executeQuery("SELECT * FROM personne WHERE ID = " + ID  + " AND Type = 'Etudiant'");
+            ResultSet result = this.co.createStatement().executeQuery("SELECT * FROM personne WHERE ID = " + ID  + " AND Type = 'Etudiant'");
             if (result.first()) {
                 eleve = new Eleve(
                         ID,
+                        0, // l'accès
                         result.getString("Nom"),
                         result.getString("Prenom")
                 );
@@ -51,5 +51,32 @@ public class EleveDAO extends DAO<Eleve> {
             e.printStackTrace();
         }
         return eleve;
+    }
+    
+    @Override
+    public int getNbRows() {
+        int nbRows = 0;
+        try {      
+            ResultSet result = this.co.createStatement().executeQuery("SELECT * FROM personne WHERE Type = 'Etudiant'");
+            result.last();
+            nbRows = result.getRow(); // Donne le numéro de la dernière ligne, par conséquent le nombre de lignes
+            result.beforeFirst();
+            
+        } catch (SQLException ex) {}
+        return nbRows;
+    }
+    
+    @Override
+    public HashMap<Integer, Eleve> getTable() {
+        HashMap<Integer, Eleve> eleves = new HashMap<>();
+        try {
+            ResultSet result = this.co.createStatement().executeQuery("SELECT * FROM personne WHERE Type = 'Etudiant'");
+            while(result.next()) {
+                int ID = result.getInt("ID");
+                eleves.put(ID, new Eleve(ID, 0, result.getString("Nom"), result.getString("Prenom")));
+            }
+        } catch (SQLException ex) {}
+
+        return eleves;
     }
 }

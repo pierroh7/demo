@@ -5,14 +5,16 @@
  */
 package Modele;
 
+
+
 /**
  *
  * @author Nathan
  */
-class Note {
-    
+public class Trimestre {
     private int ID;
-    private int trimestre;
-    private double note;
-    private int coefficient;
+    private int ID_Annee;
+    private int numero;
+    private String debut;
+    private String fin;
 }

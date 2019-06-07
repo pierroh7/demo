@@ -6,19 +6,22 @@
 package Modele;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 /**
  *
  * @author Nathan
  */
-public class NiveauDAO extends DAO<Niveau> {
+public class EvaluationDAO extends DAO<Evaluation> {
 
-    public NiveauDAO(Connection conn) {
+    public EvaluationDAO(Connection conn) {
         super(conn);
     }
+    
     @Override
-    public boolean create(Niveau o) {
+    public boolean create(Evaluation o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -28,12 +31,12 @@ public class NiveauDAO extends DAO<Niveau> {
     }
 
     @Override
-    public boolean update(Niveau o) {
+    public boolean update(Evaluation o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Niveau find(int ID) {
+    public Evaluation find(int ID) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -43,8 +46,25 @@ public class NiveauDAO extends DAO<Niveau> {
     }
 
     @Override
-    public HashMap<Integer, Niveau> getTable() {
+    public HashMap<Integer, Evaluation> getTable() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public HashMap<Integer, Evaluation> getTableSpecID(int ID_DetailBulletin) {
+        HashMap<Integer, Evaluation> notes = new HashMap<>();
+        try {
+            ResultSet rs = this.co.createStatement().executeQuery("SELECT * FROM evaluation WHERE IDDetailBulletin = " + ID_DetailBulletin);
+            while (rs.next()) {
+                int ID = rs.getInt("ID");
+                notes.put(ID, new Evaluation(
+                        ID,
+                        rs.getInt("IDDetailBulletin"),
+                        rs.getInt("Note"),
+                        rs.getInt("Coefficient"),
+                        rs.getString("Appreciation")));
+            }
+        } catch (SQLException ex) {}
+        return notes;
     }
     
 }

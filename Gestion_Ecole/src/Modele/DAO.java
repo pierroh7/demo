@@ -5,6 +5,7 @@
  */
 package Modele;
 import java.sql.*;
+import java.util.HashMap;
 
 /**
  * @author Nathan
@@ -44,4 +45,8 @@ public abstract class DAO<Objet> {
      * @return Objet
      */
     public abstract Objet find(int ID);
+
+    public abstract int getNbRows();
+    
+    public abstract HashMap<Integer, Objet> getTable();
 }

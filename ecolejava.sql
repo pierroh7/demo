@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 06 juin 2019 à 23:01
+-- Généré le :  ven. 07 juin 2019 à 23:17
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.14
 
@@ -32,7 +32,16 @@ DROP TABLE IF EXISTS `annee`;
 CREATE TABLE IF NOT EXISTS `annee` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2022 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `annee`
+--
+
+INSERT INTO `annee` (`ID`) VALUES
+(1819),
+(1920),
+(2021);
 
 -- --------------------------------------------------------
 
@@ -49,7 +58,14 @@ CREATE TABLE IF NOT EXISTS `bulletin` (
   PRIMARY KEY (`ID`),
   KEY `IDInscription` (`IDInscription`),
   KEY `IDTrimestre` (`IDTrimestre`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `bulletin`
+--
+
+INSERT INTO `bulletin` (`ID`, `IDInscription`, `IDTrimestre`, `Appreciation`) VALUES
+(1, 1, 1, '');
 
 -- --------------------------------------------------------
 
@@ -61,10 +77,21 @@ DROP TABLE IF EXISTS `classe`;
 CREATE TABLE IF NOT EXISTS `classe` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `IDNiveau` int(11) NOT NULL,
+  `IDAnnee` int(11) NOT NULL,
   `Nom` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`),
-  KEY `IDNiveau` (`IDNiveau`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `IDNiveau` (`IDNiveau`),
+  KEY `IDAnnee` (`IDAnnee`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `classe`
+--
+
+INSERT INTO `classe` (`ID`, `IDNiveau`, `IDAnnee`, `Nom`) VALUES
+(3, 1, 1819, 'TD01'),
+(4, 2, 1819, 'TD02'),
+(5, 3, 1819, 'TD03');
 
 -- --------------------------------------------------------
 
@@ -81,7 +108,14 @@ CREATE TABLE IF NOT EXISTS `detailbulletin` (
   PRIMARY KEY (`ID`),
   KEY `IDEnseignement` (`IDEnseignement`),
   KEY `IDBulletin` (`IDBulletin`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `detailbulletin`
+--
+
+INSERT INTO `detailbulletin` (`ID`, `IDEnseignement`, `IDBulletin`, `Appreciation`) VALUES
+(1, 1, 1, 'Bon en math');
 
 -- --------------------------------------------------------
 
@@ -94,7 +128,17 @@ CREATE TABLE IF NOT EXISTS `discipline` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Nom` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `discipline`
+--
+
+INSERT INTO `discipline` (`ID`, `Nom`) VALUES
+(1, 'Mathématiques'),
+(2, 'Français'),
+(3, 'Anglais'),
+(4, 'Informatique');
 
 -- --------------------------------------------------------
 
@@ -112,7 +156,16 @@ CREATE TABLE IF NOT EXISTS `enseignent` (
   KEY `IDClasse` (`IDClasse`),
   KEY `IDDiscipline` (`IDDiscipline`),
   KEY `IDProfesseur` (`IDProfesseur`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `enseignent`
+--
+
+INSERT INTO `enseignent` (`ID`, `IDClasse`, `IDDiscipline`, `IDProfesseur`) VALUES
+(1, 3, 1, 4),
+(2, 4, 1, 4),
+(3, 5, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -125,10 +178,20 @@ CREATE TABLE IF NOT EXISTS `evaluation` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `IDDetailBulletin` int(11) NOT NULL,
   `Note` int(11) NOT NULL,
+  `Coefficient` int(11) NOT NULL,
   `Appreciation` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `IDDetailBulletin` (`IDDetailBulletin`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `evaluation`
+--
+
+INSERT INTO `evaluation` (`ID`, `IDDetailBulletin`, `Note`, `Coefficient`, `Appreciation`) VALUES
+(1, 1, 20, 2, ''),
+(2, 1, 19, 3, ''),
+(3, 1, 18, 1, '');
 
 -- --------------------------------------------------------
 
@@ -159,7 +222,14 @@ CREATE TABLE IF NOT EXISTS `inscription` (
   PRIMARY KEY (`ID`),
   KEY `IDEtudiant` (`IDEtudiant`),
   KEY `IDClasse` (`IDClasse`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `inscription`
+--
+
+INSERT INTO `inscription` (`ID`, `IDEtudiant`, `IDClasse`) VALUES
+(1, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -172,7 +242,18 @@ CREATE TABLE IF NOT EXISTS `niveau` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Nom` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `niveau`
+--
+
+INSERT INTO `niveau` (`ID`, `Nom`) VALUES
+(1, 'ING1'),
+(2, 'ING2'),
+(3, 'ING3'),
+(4, 'ING4'),
+(5, 'ING5');
 
 -- --------------------------------------------------------
 
@@ -183,15 +264,24 @@ CREATE TABLE IF NOT EXISTS `niveau` (
 DROP TABLE IF EXISTS `personne`;
 CREATE TABLE IF NOT EXISTS `personne` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `IDClasse` int(11) DEFAULT NULL,
-  `IDAnnee` int(11) DEFAULT NULL,
   `Prenom` varchar(255) NOT NULL,
   `Nom` varchar(255) NOT NULL,
   `Type` set('Etudiant','Enseignant','Directeur','') NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `IDClasse` (`IDClasse`),
-  KEY `IDAnnee` (`IDAnnee`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `personne`
+--
+
+INSERT INTO `personne` (`ID`, `Prenom`, `Nom`, `Type`) VALUES
+(1, 'Nathan', 'Lancman', 'Etudiant'),
+(2, 'Stan', 'StanFam', 'Etudiant'),
+(3, 'Directeur', 'DirFam', 'Directeur'),
+(4, 'ProfMath', 'Math', 'Enseignant'),
+(5, 'ProfFr', 'Francais', 'Enseignant'),
+(6, 'ProfAn', 'Anglais', 'Enseignant'),
+(7, 'ProfInfo', 'Info', 'Enseignant');
 
 -- --------------------------------------------------------
 
@@ -208,7 +298,22 @@ CREATE TABLE IF NOT EXISTS `trimestre` (
   `Fin` date NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `IDAnnee` (`IDAnnee`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `trimestre`
+--
+
+INSERT INTO `trimestre` (`ID`, `IDAnnee`, `Numero`, `Debut`, `Fin`) VALUES
+(1, 1819, 1, '2018-09-03', '2018-11-30'),
+(2, 1819, 2, '2018-12-03', '2019-03-15'),
+(3, 1819, 3, '2019-03-18', '2019-06-07'),
+(4, 1920, 1, '2019-09-02', '2019-11-29'),
+(5, 1920, 2, '2019-12-02', '2020-03-13'),
+(6, 1920, 3, '2020-03-16', '2020-06-05'),
+(7, 2021, 1, '2020-09-07', '2020-12-04'),
+(8, 2021, 2, '2020-12-07', '2021-03-19'),
+(9, 2021, 3, '2021-03-22', '2021-06-11');
 
 --
 -- Contraintes pour les tables déchargées
@@ -225,6 +330,7 @@ ALTER TABLE `bulletin`
 -- Contraintes pour la table `classe`
 --
 ALTER TABLE `classe`
+  ADD CONSTRAINT `FK_ANNEE_CLASSE` FOREIGN KEY (`IDAnnee`) REFERENCES `annee` (`ID`),
   ADD CONSTRAINT `FK_NIVEAU_CLASSE` FOREIGN KEY (`IDNiveau`) REFERENCES `niveau` (`ID`);
 
 --
@@ -260,13 +366,6 @@ ALTER TABLE `historique`
 ALTER TABLE `inscription`
   ADD CONSTRAINT `FK_CLASSE_ETUDIANT` FOREIGN KEY (`IDEtudiant`) REFERENCES `personne` (`ID`),
   ADD CONSTRAINT `FK_CLASSE_INSCRIPTION` FOREIGN KEY (`IDClasse`) REFERENCES `classe` (`ID`);
-
---
--- Contraintes pour la table `personne`
---
-ALTER TABLE `personne`
-  ADD CONSTRAINT `FK_ANNEE_PERSONNE` FOREIGN KEY (`IDAnnee`) REFERENCES `annee` (`ID`),
-  ADD CONSTRAINT `FK_CLASSE_PERSONNE` FOREIGN KEY (`IDClasse`) REFERENCES `classe` (`ID`);
 
 --
 -- Contraintes pour la table `trimestre`

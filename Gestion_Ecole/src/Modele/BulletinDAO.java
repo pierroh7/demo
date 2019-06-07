@@ -12,13 +12,13 @@ import java.util.HashMap;
  *
  * @author Nathan
  */
-public class NiveauDAO extends DAO<Niveau> {
+public class BulletinDAO extends DAO<Bulletin> {
 
-    public NiveauDAO(Connection conn) {
+    public BulletinDAO(Connection conn) {
         super(conn);
     }
     @Override
-    public boolean create(Niveau o) {
+    public boolean create(Bulletin o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -28,12 +28,12 @@ public class NiveauDAO extends DAO<Niveau> {
     }
 
     @Override
-    public boolean update(Niveau o) {
+    public boolean update(Bulletin o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Niveau find(int ID) {
+    public Bulletin find(int ID) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -43,7 +43,7 @@ public class NiveauDAO extends DAO<Niveau> {
     }
 
     @Override
-    public HashMap<Integer, Niveau> getTable() {
+    public HashMap<Integer, Bulletin> getTable() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

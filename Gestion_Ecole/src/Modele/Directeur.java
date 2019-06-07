@@ -9,15 +9,14 @@ package Modele;
  *
  * @author Nathan
  */
-public class Enseignant extends Personne {
+public class Directeur extends Personne {
+    public Directeur() {}
     
-    public Enseignant() {}
-    
-    public Enseignant(int _ID, int _acces, String _nom, String _prenom) {
+    public Directeur(int _ID, int _acces, String _nom, String _prenom) {
         super(_ID, _acces, _nom, _prenom);
     }
-    
-    public Enseignant(Enseignant e) {
-         super(e.getID(), e.getAcces(), e.getNom(), e.getPrenom());
+
+    public Directeur(Eleve e) {
+        super(e.getID(), e.getAcces(), e.getNom(), e.getPrenom());
     }
 }
