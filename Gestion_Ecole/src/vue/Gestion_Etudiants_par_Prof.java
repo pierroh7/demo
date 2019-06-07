@@ -87,9 +87,10 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1200, 980));
+        setPreferredSize(new java.awt.Dimension(1100, 600));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 600));
         jPanel1.setLayout(null);
@@ -247,6 +248,15 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
         jPanel1.add(jButton1);
         jButton1.setBounds(800, 80, 40, 30);
 
+        jButton6.setText("X");
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jButton6);
+        jButton6.setBounds(840, 80, 50, 32);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -274,6 +284,7 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
             if(txt_id.getText().length() != 0){
                 etat.executeUpdate("DELETE FROM etudiant WHERE ID="+txt_id.getText());
                 etat.executeUpdate("DELETE FROM notes WHERE ID="+txt_id.getText());
+                etat.executeUpdate("INSERT INTO historique(ID, Nom, Prenom, Type) VALUES ('"+txt_id.getText()+"', '"+txt_name.getText()+"', '"+txt_surname.getText()+"', 'Supprimer')");
             }else{
                 JOptionPane.showMessageDialog(null, "Merci de remplir le champ ID svp");
             }
@@ -317,6 +328,7 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
                     JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION){
                 etat.executeUpdate("UPDATE etudiant SET Nom='"+txt_name.getText()+"',Prenom='"+txt_surname.getText()+"', Classe='"+txt_class.getSelectedItem().toString()+"' WHERE ID="+txt_id.getText());
                 }
+                etat.executeUpdate("INSERT INTO historique(ID, Nom, Prenom, Type) VALUES ('"+txt_id.getText()+"', '"+txt_name.getText()+"', '"+txt_surname.getText()+"', 'Modifier')");
                 //Code d'actualisation du tableau 
                mise_a_jour();
                 
@@ -338,9 +350,7 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
     //Recherche
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        String request_id="";
-        String request_promo="";
-        String request_classe="";
+        String request_id, request_promo, request_classe;
         
         if(!recherche_classe.getSelectedItem().toString().equals("   ") && recherche_promo.getSelectedItem().toString().equals("   ") && recherche_id.getText().equals("")){
             request_classe = " WHERE Classe = '"+recherche_classe.getSelectedItem().toString()+"'";
@@ -387,6 +397,12 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1MouseClicked
 
+    //Quitter la recherche
+    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+        // TODO add your handling code here:
+        mise_a_jour();
+    }//GEN-LAST:event_jButton6MouseClicked
+
     
     
    
@@ -410,6 +426,8 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
         
         String requete_lfh = "INSERT INTO notes(ID, Matiere, Semestre) VALUES ('"+id+"', 'lfh', '1')";
         String requete_lfh2 = "INSERT INTO notes(ID, Matiere, Semestre) VALUES ('"+id+"', 'lfh', '2')";
+        
+        String requete_hist = "INSERT INTO historique(ID, Nom, Prenom, Type) VALUES ('"+id+"', '"+nom+"', '"+prenom+"', 'Ajouter')";
         try{
             etat.executeUpdate(requete);
             etat.executeUpdate(requete_math);
@@ -420,6 +438,7 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
             etat.executeUpdate(requete_info2);
             etat.executeUpdate(requete_lfh);
             etat.executeUpdate(requete_lfh2);
+            etat.executeUpdate(requete_hist);
             
             JOptionPane.showMessageDialog(null, "Etudiant ajouté !"); 
             txt_id.setText("");
@@ -463,7 +482,7 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
                 //Stock  des données souhaitées de la base dans le tableau
                 while(result.next()){
                     default_table.addRow(new Object[]{result.getString("ID"), result.getString("Nom"),
-                    result.getString("Prenom"),result.getString("Classe")});
+                    result.getString("Prenom"),result.getString("Classe"), result.getString("Promo")});
                 }
             }catch(Exception e){
                 System.out.println(e);
@@ -516,6 +535,7 @@ public class Gestion_Etudiants_par_Prof extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

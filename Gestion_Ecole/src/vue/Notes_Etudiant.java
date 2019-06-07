@@ -98,10 +98,13 @@ public class Notes_Etudiant extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setSize(new java.awt.Dimension(900, 500));
         getContentPane().setLayout(null);
 
+        jPanel1.setMinimumSize(new java.awt.Dimension(900, 500));
         jPanel1.setLayout(null);
 
+        modif_notes.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         modif_notes.setText("Modifier Note(s)");
         modif_notes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -109,7 +112,7 @@ public class Notes_Etudiant extends javax.swing.JFrame {
             }
         });
         jPanel1.add(modif_notes);
-        modif_notes.setBounds(390, 360, 142, 32);
+        modif_notes.setBounds(20, 460, 160, 50);
 
         back.setText("Retour");
         back.addActionListener(new java.awt.event.ActionListener() {
@@ -118,8 +121,9 @@ public class Notes_Etudiant extends javax.swing.JFrame {
             }
         });
         jPanel1.add(back);
-        back.setBounds(560, 360, 132, 32);
+        back.setBounds(740, 460, 132, 32);
 
+        ajout_notes.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         ajout_notes.setText("Ajouter Note(s)");
         ajout_notes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -127,7 +131,7 @@ public class Notes_Etudiant extends javax.swing.JFrame {
             }
         });
         jPanel1.add(ajout_notes);
-        ajout_notes.setBounds(230, 360, 142, 32);
+        ajout_notes.setBounds(20, 390, 160, 50);
 
         txt_semestre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2" }));
         jPanel1.add(txt_semestre);
@@ -176,7 +180,7 @@ public class Notes_Etudiant extends javax.swing.JFrame {
         jScrollPane1.setViewportView(notes);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(180, 130, 550, 180);
+        jScrollPane1.setBounds(220, 150, 700, 250);
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel8.setText("Profil étudiant :");
@@ -218,7 +222,7 @@ public class Notes_Etudiant extends javax.swing.JFrame {
         jLabel7.setBounds(10, 280, 60, 16);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 740, 420);
+        jPanel1.setBounds(0, 0, 1060, 540);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -266,33 +270,76 @@ public class Notes_Etudiant extends javax.swing.JFrame {
     //Ajouter nouvelle note
     private void ajout_notesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ajout_notesMouseClicked
         // TODO add your handling code here:
+        String request;
+        
+        if(!txt_ds1.getText().equals("")){
+            request = "UPDATE notes SET DS1 = '"+txt_ds1.getText()+"' WHERE ID='"+ID.getText()+"' AND Matiere='"+txt_matiere.getSelectedItem().toString()+"' AND Semestre='"+txt_semestre.getSelectedItem().toString()+"'";
+            ajout(request);
+        }
+        if(!txt_ds2.getText().equals("")){
+            request = "UPDATE notes SET DS2 = '"+txt_ds2.getText()+"' WHERE ID='"+ID.getText()+"' AND Matiere='"+txt_matiere.getSelectedItem().toString()+"' AND Semestre='"+txt_semestre.getSelectedItem().toString()+"'";
+            ajout(request);
+        }
+        
+        if(!txt_ns1.getText().equals("")){
+            request = "UPDATE notes SET NS1 = '"+txt_ns1.getText()+"' WHERE ID='"+ID.getText()+"' AND Matiere='"+txt_matiere.getSelectedItem().toString()+"' AND Semestre='"+txt_semestre.getSelectedItem().toString()+"'";
+            ajout (request);
+        }
+        
+        if(!txt_ns2.getText().equals("")){
+            request = "UPDATE notes SET NS2 = '"+txt_ns2.getText()+"' WHERE ID='"+ID.getText()+"' AND Matiere='"+txt_matiere.getSelectedItem().toString()+"' AND Semestre='"+txt_semestre.getSelectedItem().toString()+"'";
+            ajout(request);
+        }
+        
+        
+    }//GEN-LAST:event_ajout_notesMouseClicked
+
+    //Fonction utilisée pour ajouter/modifier une note
+    public void ajout(String request){
         try{
-            etat.executeUpdate("UPDATE notes SET DS1='"+txt_ds1.getText()+"', DS2='"+txt_ds2.getText()+"', NS1='"+txt_ns1.getText()+"', NS2='"+txt_ns2.getText()+"' WHERE ID='"+ID.getText()+"' AND Matiere='"+txt_matiere.getSelectedItem().toString()+"' AND Semestre='"+txt_semestre.getSelectedItem().toString()+"'");
+            
+            etat.executeUpdate(request);
             
             JOptionPane.showMessageDialog(null, "Note(s) ajoutée(s) !"); 
-            txt_ds1.setText("");
+            /*txt_ds1.setText("");
             txt_ds2.setText("");
             txt_ns1.setText("");
             txt_ns2.setText("");
-            txt_semestre.setSelectedItem("math");
+            txt_semestre.setSelectedItem("math");*/
             
             //Code d'actualisation du tableau
             mise_a_jour();
         
         }catch(Exception e){
             JOptionPane.showMessageDialog(null,e.getMessage());}  
-    }//GEN-LAST:event_ajout_notesMouseClicked
-
-    //Modifer notes étudiant
+    }
+    //Modifer notes étudiant (comme ajouter en fait)
     private void modif_notesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modif_notesMouseClicked
         try{
             if (JOptionPane.showConfirmDialog (null, "Enregistrer la modification ?", "modif", 
                     JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION){
-                etat.executeUpdate("UPDATE notes SET DS1='"+txt_ds1.getText()+"', DS2='"+txt_ds2.getText()+"', NS1='"+txt_ns1.getText()+"', NS2='"+txt_ns2.getText()+"' WHERE ID='"+ID.getText()+"' AND Matiere='"+txt_matiere.getSelectedItem().toString()+"' AND Semestre='"+txt_semestre.getSelectedItem().toString()+"'");
-                }
-                //Code d'actualisation du tableau 
-                mise_a_jour();
-                
+                    
+                    String request;
+
+                    if(!txt_ds1.getText().equals("")){
+                        request = "UPDATE notes SET DS1 = '"+txt_ds1.getText()+"' WHERE ID='"+ID.getText()+"' AND Matiere='"+txt_matiere.getSelectedItem().toString()+"' AND Semestre='"+txt_semestre.getSelectedItem().toString()+"'";
+                        ajout(request);
+                    }
+                    if(!txt_ds2.getText().equals("")){
+                        request = "UPDATE notes SET DS2 = '"+txt_ds2.getText()+"' WHERE ID='"+ID.getText()+"' AND Matiere='"+txt_matiere.getSelectedItem().toString()+"' AND Semestre='"+txt_semestre.getSelectedItem().toString()+"'";
+                        ajout(request);
+                    }
+
+                    if(!txt_ns1.getText().equals("")){
+                        request = "UPDATE notes SET NS1 = '"+txt_ns1.getText()+"' WHERE ID='"+ID.getText()+"' AND Matiere='"+txt_matiere.getSelectedItem().toString()+"' AND Semestre='"+txt_semestre.getSelectedItem().toString()+"'";
+                        ajout (request);
+                    }
+
+                    if(!txt_ns2.getText().equals("")){
+                        request = "UPDATE notes SET NS2 = '"+txt_ns2.getText()+"' WHERE ID='"+ID.getText()+"' AND Matiere='"+txt_matiere.getSelectedItem().toString()+"' AND Semestre='"+txt_semestre.getSelectedItem().toString()+"'";
+                        ajout(request);
+                    }                }
+                                
             
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Modification non-effectuée " +e.getMessage());

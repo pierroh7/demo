@@ -1,12 +1,6 @@
--Gestion : la recherche d'étudiants avec une info
-
--Notes : ajout d'une note en mieux
-
-
 -Connexion : en admin ou élève
 
-
--Coder l'historique
+-Coder l'historique  oui
 
 
 -Profil étudiant
