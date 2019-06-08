@@ -18,7 +18,7 @@ public class Enseignement {
     public Enseignement() {}
     public Enseignement(int _ID, int _ID_Discipline, int _ID_Enseignant, int _ID_Classe) {
         this.ID = _ID;
-        this.ID_Discipline = _ID_Enseignant;
+        this.ID_Discipline = _ID_Discipline;
         this.ID_Enseignant = _ID_Enseignant;
         this.ID_Classe = _ID_Classe;
     }

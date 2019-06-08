@@ -49,6 +49,12 @@ public class Maintest {
                     }
                 }
             }
+            
+            for (Enseignant e : ecole.getEnseignants().values()) {
+                for (Enseignement ee : e.getEnseignements().values()) {
+                    System.out.println(ee.getID() + " " + ee.getID_Classe() + " " + ee.getID_Discipline() + " " + ee.getID_Enseignant());
+                }
+            }
             //ecole.saveEcole();
         }
 }
