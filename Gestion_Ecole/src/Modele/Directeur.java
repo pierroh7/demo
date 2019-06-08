@@ -11,7 +11,6 @@ package Modele;
  */
 public class Directeur extends Personne {
     public Directeur() {}
-    
     public Directeur(int _ID, int _acces, String _nom, String _prenom) {
         super(_ID, _acces, _nom, _prenom);
     }

@@ -6,6 +6,7 @@
 package Modele;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -22,7 +23,18 @@ public class EvaluationDAO extends DAO<Evaluation> {
     
     @Override
     public boolean create(Evaluation o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String query = "INSERT INTO evaluation (ID, IDDetailBulletin, Note, Coefficient, Appreciation)"
+                         + " VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.setInt(1, o.getID());
+            preparedStmt.setInt(2, o.getID_DetailBulletin());
+            preparedStmt.setDouble(3, o.getNote());
+            preparedStmt.setDouble(4, o.getCoefficient());
+            preparedStmt.setString(5, o.getAppreciation());
+            preparedStmt.execute();
+        } catch (SQLException ex) { System.out.println("Ajout evaluation echoue."); }
+        return true;         
     }
 
     @Override
@@ -66,5 +78,33 @@ public class EvaluationDAO extends DAO<Evaluation> {
         } catch (SQLException ex) {}
         return notes;
     }
+
+    @Override
+    public void deteleTable() {
+        try {
+            String query = "DELETE FROM evaluation";
+            PreparedStatement preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.execute();
+            System.out.println("Table evaluation supprimee");
+            
+            query = "ALTER TABLE evaluation AUTO_INCREMENT = 1";
+            preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.execute();
+            System.out.println("AutoIncrement a 1");
+            
+        } catch (SQLException ex) { System.out.println("Suppression de table evaluation echouee."); }
+    }
     
+    @Override
+    public int getMaxID() {
+        int maxID = 0;
+        try {      
+            ResultSet result = this.co.createStatement().executeQuery("SELECT * FROM evaluation");
+            result.last();
+            maxID = result.getInt("ID"); // Donne le dernier ID
+            //rs.beforeFirst();
+            
+        } catch (SQLException ex) {}
+        return maxID;
+    }
 }

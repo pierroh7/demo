@@ -16,7 +16,6 @@ public class Enseignement {
     private int ID_Classe;
     
     public Enseignement() {}
-    
     public Enseignement(int _ID, int _ID_Discipline, int _ID_Enseignant, int _ID_Classe) {
         this.ID = _ID;
         this.ID_Discipline = _ID_Enseignant;

@@ -6,6 +6,7 @@
 package Modele;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -22,7 +23,17 @@ public class DirecteurDAO extends DAO<Directeur> {
 
     @Override
     public boolean create(Directeur o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String query = "INSERT INTO personne (ID, Nom, Prenom, Type)"
+                         + " VALUES (?, ?, ?, ?)";
+            PreparedStatement preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.setInt(1, o.getID());
+            preparedStmt.setString (2, o.getNom());
+            preparedStmt.setString   (3, o.getPrenom());
+            preparedStmt.setString(4, "Directeur");
+            preparedStmt.execute();
+        } catch (SQLException e) { System.out.println("Ajout directeur echoue."); }        
+        return true;    
     }
 
     @Override
@@ -58,4 +69,15 @@ public class DirecteurDAO extends DAO<Directeur> {
 
         return directeurs;
     }
+
+    @Override
+    public void deteleTable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getMaxID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }

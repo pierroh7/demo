@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 08 juin 2019 à 11:19
+-- Généré le :  sam. 08 juin 2019 à 19:30
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.14
 
@@ -268,7 +268,7 @@ CREATE TABLE IF NOT EXISTS `personne` (
   `Nom` varchar(255) NOT NULL,
   `Type` set('Etudiant','Enseignant','Directeur','') NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `personne`
@@ -281,7 +281,10 @@ INSERT INTO `personne` (`ID`, `Prenom`, `Nom`, `Type`) VALUES
 (4, 'ProfMath', 'Math', 'Enseignant'),
 (5, 'ProfFr', 'Francais', 'Enseignant'),
 (6, 'ProfAn', 'Anglais', 'Enseignant'),
-(7, 'ProfInfo', 'Info', 'Enseignant');
+(7, 'ProfInfo', 'Info', 'Enseignant'),
+(8, 'Pierre', 'Feuille', 'Etudiant'),
+(9, 'Pala', 'Polo', 'Etudiant'),
+(10, 'Pala', 'Polo', 'Etudiant');
 
 -- --------------------------------------------------------
 
@@ -323,36 +326,36 @@ INSERT INTO `trimestre` (`ID`, `IDAnnee`, `Numero`, `Debut`, `Fin`) VALUES
 -- Contraintes pour la table `bulletin`
 --
 ALTER TABLE `bulletin`
-  ADD CONSTRAINT `FK_INSCRIPTION_BULLETIN` FOREIGN KEY (`IDInscription`) REFERENCES `inscription` (`ID`),
-  ADD CONSTRAINT `FK_TRIMESTRE_BULLETIN` FOREIGN KEY (`IDTrimestre`) REFERENCES `trimestre` (`ID`);
+  ADD CONSTRAINT `FK_INSCRIPTION_BULLETIN` FOREIGN KEY (`IDInscription`) REFERENCES `inscription` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_TRIMESTRE_BULLETIN` FOREIGN KEY (`IDTrimestre`) REFERENCES `trimestre` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `classe`
 --
 ALTER TABLE `classe`
-  ADD CONSTRAINT `FK_ANNEE_CLASSE` FOREIGN KEY (`IDAnnee`) REFERENCES `annee` (`ID`),
-  ADD CONSTRAINT `FK_NIVEAU_CLASSE` FOREIGN KEY (`IDNiveau`) REFERENCES `niveau` (`ID`);
+  ADD CONSTRAINT `FK_ANNEE_CLASSE` FOREIGN KEY (`IDAnnee`) REFERENCES `annee` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_NIVEAU_CLASSE` FOREIGN KEY (`IDNiveau`) REFERENCES `niveau` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `detailbulletin`
 --
 ALTER TABLE `detailbulletin`
-  ADD CONSTRAINT `FK_BULLETIN_DETAIL` FOREIGN KEY (`IDBulletin`) REFERENCES `bulletin` (`ID`),
-  ADD CONSTRAINT `FK_ENSEIGNEMENT_DETAIL` FOREIGN KEY (`IDEnseignement`) REFERENCES `enseignement` (`ID`);
+  ADD CONSTRAINT `FK_BULLETIN_DETAIL` FOREIGN KEY (`IDBulletin`) REFERENCES `bulletin` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_ENSEIGNEMENT_DETAIL` FOREIGN KEY (`IDEnseignement`) REFERENCES `enseignement` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `enseignement`
 --
 ALTER TABLE `enseignement`
-  ADD CONSTRAINT `FK_CLASSE_ENSEIGNEMENT` FOREIGN KEY (`IDClasse`) REFERENCES `classe` (`ID`),
-  ADD CONSTRAINT `FK_DISCIPLINE_ENSEIGNEMENT` FOREIGN KEY (`IDDiscipline`) REFERENCES `discipline` (`ID`),
-  ADD CONSTRAINT `FK_PROFESSEUR_ENSEIGNEMENT` FOREIGN KEY (`IDEnseignant`) REFERENCES `personne` (`ID`);
+  ADD CONSTRAINT `FK_CLASSE_ENSEIGNEMENT` FOREIGN KEY (`IDClasse`) REFERENCES `classe` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_DISCIPLINE_ENSEIGNEMENT` FOREIGN KEY (`IDDiscipline`) REFERENCES `discipline` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_PROFESSEUR_ENSEIGNEMENT` FOREIGN KEY (`IDEnseignant`) REFERENCES `personne` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `evaluation`
 --
 ALTER TABLE `evaluation`
-  ADD CONSTRAINT `FK_DETAIL_EVALUATION` FOREIGN KEY (`IDDetailBulletin`) REFERENCES `detailbulletin` (`ID`);
+  ADD CONSTRAINT `FK_DETAIL_EVALUATION` FOREIGN KEY (`IDDetailBulletin`) REFERENCES `detailbulletin` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `historique`
@@ -364,14 +367,14 @@ ALTER TABLE `historique`
 -- Contraintes pour la table `inscription`
 --
 ALTER TABLE `inscription`
-  ADD CONSTRAINT `FK_CLASSE_ETUDIANT` FOREIGN KEY (`IDEtudiant`) REFERENCES `personne` (`ID`),
-  ADD CONSTRAINT `FK_CLASSE_INSCRIPTION` FOREIGN KEY (`IDClasse`) REFERENCES `classe` (`ID`);
+  ADD CONSTRAINT `FK_CLASSE_ETUDIANT` FOREIGN KEY (`IDEtudiant`) REFERENCES `personne` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_CLASSE_INSCRIPTION` FOREIGN KEY (`IDClasse`) REFERENCES `classe` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `trimestre`
 --
 ALTER TABLE `trimestre`
-  ADD CONSTRAINT `FK_ANNEE_TRIMESTRE` FOREIGN KEY (`IDAnnee`) REFERENCES `annee` (`ID`);
+  ADD CONSTRAINT `FK_ANNEE_TRIMESTRE` FOREIGN KEY (`IDAnnee`) REFERENCES `annee` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

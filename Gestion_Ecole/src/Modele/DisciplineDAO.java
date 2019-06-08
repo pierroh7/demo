@@ -19,8 +19,16 @@ public class DisciplineDAO extends DAO<Discipline> {
     }
     
     @Override
-        public boolean create(Discipline obj) {
-        return false;
+        public boolean create(Discipline o) {
+        try {
+            String query = "INSERT INTO discipline (ID, Nom)"
+                         + " VALUES (?, ?)";
+            PreparedStatement preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.setInt(1, o.getID());
+            preparedStmt.setString(2, o.getNom());
+            preparedStmt.execute();
+        } catch (SQLException ex) { System.out.println("Ajout discipline echoue."); }
+        return true;
     }
 
     @Override
@@ -29,7 +37,7 @@ public class DisciplineDAO extends DAO<Discipline> {
     }
 
     @Override
-    public boolean update(Discipline obj) {
+    public boolean update(Discipline o) {
         return false;
     }
 
@@ -59,5 +67,33 @@ public class DisciplineDAO extends DAO<Discipline> {
 
         return disciplines;    
     }
+
+    @Override
+    public void deteleTable() {
+        try {
+            String query = "DELETE FROM discipline";
+            PreparedStatement preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.execute();
+            System.out.println("Table discipline supprimee");
+            
+            query = "ALTER TABLE discipline AUTO_INCREMENT = 1";
+            preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.execute();
+            System.out.println("AutoIncrement a 1");
+            
+        } catch (SQLException ex) { System.out.println("Suppression de table discipline echouee."); }
+    }
     
+    @Override
+    public int getMaxID() {
+        int maxID = 0;
+        try {      
+            ResultSet result = this.co.createStatement().executeQuery("SELECT * FROM discipline");
+            result.last();
+            maxID = result.getInt("ID"); // Donne le dernier ID
+            //rs.beforeFirst();
+            
+        } catch (SQLException ex) {}
+        return maxID;
+    }
 }

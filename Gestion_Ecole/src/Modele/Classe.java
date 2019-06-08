@@ -16,7 +16,6 @@ public class Classe {
     private String nom;
     
     public Classe() {}
-    
     public Classe(int _ID, int _ID_Niveau, int _ID_Annee, String _nom) {
         this.ID = _ID;
         this.ID_Niveau = _ID_Niveau;

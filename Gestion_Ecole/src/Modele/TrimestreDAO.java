@@ -6,6 +6,7 @@
 package Modele;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -22,7 +23,18 @@ public class TrimestreDAO extends DAO<Trimestre> {
 
     @Override
     public boolean create(Trimestre o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String query = "INSERT INTO trimestre (ID, IDAnnee, Numero, Debut, Fin)"
+                         + " VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.setInt(1, o.getID());
+            preparedStmt.setInt(2, o.getID_Annee());
+            preparedStmt.setInt(3, o.getNumero());
+            preparedStmt.setString(4, o.getDebut());
+            preparedStmt.setString(5, o.getFin());
+            preparedStmt.execute();
+        } catch (SQLException ex) { System.out.println("Ajout trimestre echoue."); }
+        return true; 
     }
 
     @Override
@@ -67,5 +79,33 @@ public class TrimestreDAO extends DAO<Trimestre> {
         
         return trimestres;   
     }
+
+    @Override
+    public void deteleTable() {
+        try {
+            String query = "DELETE FROM trimestre";
+            PreparedStatement preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.execute();
+            System.out.println("Table trimestre supprimee");
+            
+            query = "ALTER TABLE trimestre AUTO_INCREMENT = 1";
+            preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.execute();
+            System.out.println("AutoIncrement a 1");
+            
+        } catch (SQLException ex) { System.out.println("Suppression de table trimestre echouee."); }
+    }
     
+    @Override
+    public int getMaxID() {
+        int maxID = 0;
+        try {      
+            ResultSet result = this.co.createStatement().executeQuery("SELECT * FROM trimestre");
+            result.last();
+            maxID = result.getInt("ID"); // Donne le dernier ID
+            //rs.beforeFirst();
+            
+        } catch (SQLException ex) {}
+        return maxID;
+    }
 }

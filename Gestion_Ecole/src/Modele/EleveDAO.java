@@ -6,8 +6,6 @@
 package Modele;
 import java.sql.*;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -20,8 +18,18 @@ public class EleveDAO extends DAO<Eleve> {
     }
 
     @Override
-    public boolean create(Eleve obj) {
-        return false;
+    public boolean create(Eleve o) {
+        try {
+            String query = "INSERT INTO personne (ID, Nom, Prenom, Type)"
+                         + " VALUES (?, ?, ?, ?)";
+            PreparedStatement preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.setInt(1, o.getID());
+            preparedStmt.setString (2, o.getNom());
+            preparedStmt.setString   (3, o.getPrenom());
+            preparedStmt.setString(4, "Etudiant");
+            preparedStmt.execute();
+        } catch (SQLException ex) { System.out.println("Ajout eleve echoue."); }        
+        return true;
     }
     
     @Override
@@ -47,9 +55,7 @@ public class EleveDAO extends DAO<Eleve> {
                         result.getString("Prenom")
                 );
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException ex) {}
         return eleve;
     }
     
@@ -57,10 +63,10 @@ public class EleveDAO extends DAO<Eleve> {
     public int getNbRows() {
         int nbRows = 0;
         try {      
-            ResultSet result = this.co.createStatement().executeQuery("SELECT * FROM personne WHERE Type = 'Etudiant'");
-            result.last();
-            nbRows = result.getRow(); // Donne le numéro de la dernière ligne, par conséquent le nombre de lignes
-            result.beforeFirst();
+            ResultSet rs = this.co.createStatement().executeQuery("SELECT * FROM personne WHERE Type = 'Etudiant'");
+            rs.last();
+            nbRows = rs.getRow(); // Donne le numéro de la dernière ligne, par conséquent le nombre de lignes
+            //rs.beforeFirst();
             
         } catch (SQLException ex) {}
         return nbRows;
@@ -78,5 +84,34 @@ public class EleveDAO extends DAO<Eleve> {
         } catch (SQLException ex) {}
 
         return eleves;
+    }
+
+    @Override
+    public void deteleTable() {
+        try {
+            String query = "DELETE FROM personne";
+            PreparedStatement preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.execute();
+            System.out.println("Table personne supprimee");
+            
+            query = "ALTER TABLE personne AUTO_INCREMENT = 1";
+            preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.execute();
+            System.out.println("AutoIncrement a 1");
+            
+        } catch (SQLException ex) { System.out.println("Suppression de table personne echouee."); }
+    }
+    
+    @Override
+    public int getMaxID() {
+        int maxID = 0;
+        try {      
+            ResultSet result = this.co.createStatement().executeQuery("SELECT * FROM personne");
+            result.last();
+            maxID = result.getInt("ID"); // Donne le dernier ID
+            //rs.beforeFirst();
+            
+        } catch (SQLException ex) { System.out.println("cle peut pas trouver"); }
+        return maxID;
     }
 }

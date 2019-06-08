@@ -29,4 +29,12 @@ public class Annee {
     public void setID(int val) { this.ID = val; }
     public void setTrimestres(HashMap<Integer, Trimestre> val) { this.trimestres = new HashMap<>(val); }
     public void setSingleTrimestre(int cle, Trimestre val ) { this.trimestres.replace(cle, val); }
+
+    void saveTrimestres() {
+        DAO<Trimestre> trimestreDAO = DAOFactory.getTrimestreDAO();
+        
+        for (Trimestre t : this.trimestres.values()) {
+            trimestreDAO.create(t);
+        }
+    }
 }

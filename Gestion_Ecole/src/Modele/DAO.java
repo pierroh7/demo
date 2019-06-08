@@ -49,4 +49,8 @@ public abstract class DAO<Objet> {
     public abstract int getNbRows();
     
     public abstract HashMap<Integer, Objet> getTable();
+    
+    public abstract void deteleTable();
+    
+    public abstract int getMaxID();
 }

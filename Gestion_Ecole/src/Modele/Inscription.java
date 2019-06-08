@@ -37,4 +37,12 @@ public class Inscription {
     public void setID_Classe(int val) { this.ID_Classe = val; }
     public void setBulletins(HashMap<Integer, Bulletin> val) { this.bulletins = new HashMap<>(val); }
     public void setSingleBulletin(int cle, Bulletin val) { this.bulletins.replace(cle, val); }
+
+    void saveBulletins() {
+        DAO<Bulletin> bulletinDAO = DAOFactory.getBulletinDAO();
+        
+        for (Bulletin b : this.bulletins.values()) {
+            bulletinDAO.create(b);
+        }
+    }
 }

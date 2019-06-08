@@ -7,10 +7,6 @@
 package Controleur;
 import Modele.*;
 import java.sql.SQLException;
-
-
-import java.util.ArrayList;
-
 /**
  *
  * @author Nathan
@@ -25,7 +21,7 @@ public class Maintest {
             System.out.println("hello world!");
             Ecole ecole = new Ecole();
             
-            for (Eleve e : ecole.getEleves().values()) {
+            /*for (Eleve e : ecole.getEleves().values()) {
                 System.out.println(e.getNom() + " " + e.getPrenom());
                 for (Inscription i : e.getInscriptions().values()) {
                     System.out.println(i.getID() + " " + i.getID_Classe() + " " + i.getID_Eleve());
@@ -34,11 +30,25 @@ public class Maintest {
                     }
                 }
             }
+            
             for (Directeur d : ecole.getDirecteurs().values()) {
                 System.out.println(d.getNom() + " " + d.getPrenom());
             }
             for (Enseignant e : ecole.getEnseignants().values()) {
                 System.out.println(e.getNom() + " " + e.getPrenom());
+            }*/
+            System.out.println("max ID = " + ecole.getClesMax().get("Personne"));
+            ecole.ajouterPersonne(new Eleve(ecole.getClesMax().get("Personne"), 0, "Polo", "Pala"), 1);
+            System.out.println("max ID = " + ecole.getClesMax().get("Personne"));
+            for (Eleve e : ecole.getEleves().values()) {
+                System.out.println(e.getPrenom() + " " + e.getNom() + " " + e.getID());
+                for (Inscription i : e.getInscriptions().values()) {
+                    System.out.println(i.getID() + " " + i.getID_Classe() + " " + i.getID_Eleve());
+                    for (Bulletin b : i.getBulletins().values()) {
+                        System.out.println(b.getID() + " " + b.getAppreciation());
+                    }
+                }
             }
+            //ecole.saveEcole();
         }
 }

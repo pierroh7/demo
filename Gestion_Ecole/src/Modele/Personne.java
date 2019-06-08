@@ -30,6 +30,7 @@ public class Personne {
     public String getPrenom() { return this.prenom; }
     
     public void setID(int val) { this.ID = val; }
+    public void setAcces(int val) { this.acces = val; }
     public void setNom(String val) { this.nom = val; }
     public void setPrenom(String val) { this.prenom = val; }
 }

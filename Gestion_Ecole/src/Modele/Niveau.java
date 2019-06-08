@@ -34,4 +34,12 @@ public class Niveau {
     public void setNom(String val) { this.nom = val; }
     public void setClasses(HashMap<Integer, Classe> val) { this.classes = new HashMap<>(val); }
     public void setSingleClasse(int cle, Classe val) { this.classes.replace(cle, val); }
+
+    void saveClasses() {
+        DAO<Classe> classeDAO = DAOFactory.getClasseDAO();
+        
+        for (Classe c : this.classes.values()) {
+            classeDAO.create(c);
+        }
+    }
 }

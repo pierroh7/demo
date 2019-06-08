@@ -13,12 +13,10 @@ import java.util.HashMap;
  * @author Nathan
  */
 public class Eleve extends Personne {
-    
     // Un élève possède plus d'une inscription (sur plusieurs années)
     private HashMap<Integer, Inscription> inscriptions;
     
     public Eleve() {}
-    
     public Eleve(int _ID, int _acces, String _nom, String _prenom) {
         super(_ID, _acces, _nom, _prenom);
         
@@ -33,4 +31,12 @@ public class Eleve extends Personne {
     public HashMap<Integer, Inscription> getInscriptions() { return this.inscriptions; }
     
     public void setInscriptions(HashMap<Integer, Inscription> val) { this.inscriptions = new HashMap<>(val); }
+
+    void saveInscriptions() {
+        DAO<Inscription> inscriptionDAO = DAOFactory.getInscriptionDAO();
+        
+        for (Inscription i : this.inscriptions.values()) {
+            inscriptionDAO.create(i);
+        }
+    }
 }

@@ -20,8 +20,18 @@ public class ClasseDAO extends DAO<Classe> {
     }
     
     @Override
-        public boolean create(Classe obj) {
-        return false;
+        public boolean create(Classe o) {
+        try {
+            String query = "INSERT INTO classe (ID, IDNiveau, IDAnnee, Nom)"
+                         + " VALUES (?, ?, ?, ?)";
+            PreparedStatement preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.setInt(1, o.getID());
+            preparedStmt.setInt(2, o.getID_Niveau());
+            preparedStmt.setInt(3, o.getID_Annee());
+            preparedStmt.setString(4, o.getNom());
+            preparedStmt.execute();
+        } catch (SQLException ex) { System.out.println("Ajout classe echoue."); }
+        return true;            
     }
 
     @Override
@@ -65,5 +75,34 @@ public class ClasseDAO extends DAO<Classe> {
         } catch (SQLException ex) {}        
         
         return classes;   
+    }
+
+    @Override
+    public void deteleTable() {
+        try {
+            String query = "DELETE FROM classe";
+            PreparedStatement preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.execute();
+            System.out.println("Table classe supprimee");
+            
+            query = "ALTER TABLE classe AUTO_INCREMENT = 1";
+            preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.execute();
+            System.out.println("AutoIncrement a 1");
+            
+        } catch (SQLException ex) { System.out.println("Suppression de table classe echouee."); }
+    }
+    
+    @Override
+    public int getMaxID() {
+        int maxID = 0;
+        try {      
+            ResultSet result = this.co.createStatement().executeQuery("SELECT * FROM classe");
+            result.last();
+            maxID = result.getInt("ID"); // Donne le dernier ID
+            //rs.beforeFirst();
+            
+        } catch (SQLException ex) {}
+        return maxID;
     }
 }

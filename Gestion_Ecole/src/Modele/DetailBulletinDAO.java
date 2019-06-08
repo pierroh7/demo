@@ -6,6 +6,7 @@
 package Modele;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -22,7 +23,17 @@ public class DetailBulletinDAO extends DAO<DetailBulletin> {
 
     @Override
     public boolean create(DetailBulletin o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String query = "INSERT INTO detailbulletin (ID, IDEnseignement, IDBulletin, Appreciation)"
+                         + " VALUES (?, ?, ?, ?)";
+            PreparedStatement preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.setInt(1, o.getID());
+            preparedStmt.setInt(2, o.getID_Enseignement());
+            preparedStmt.setInt(3, o.getID_Bulletin());
+            preparedStmt.setString(4, o.getAppreciation());
+            preparedStmt.execute();
+        } catch (SQLException ex) { System.out.println("Ajout detailbulletin echoue."); ex.printStackTrace(); }
+        return true; 
     }
 
     @Override
@@ -65,5 +76,33 @@ public class DetailBulletinDAO extends DAO<DetailBulletin> {
         } catch (SQLException ex) {}
         return detailsBulletin;
     }        
+
+    @Override
+    public void deteleTable() {
+        try {
+            String query = "DELETE FROM detailbulletin";
+            PreparedStatement preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.execute();
+            System.out.println("Table detailbulletin supprimee");
+            
+            query = "ALTER TABLE detailbulletin AUTO_INCREMENT = 1";
+            preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.execute();
+            System.out.println("AutoIncrement a 1");
+            
+        } catch (SQLException ex) { System.out.println("Suppression de table detailbulletin echouee."); }
+    }
     
+    @Override
+    public int getMaxID() {
+        int maxID = 0;
+        try {      
+            ResultSet result = this.co.createStatement().executeQuery("SELECT * FROM detailbulletin");
+            result.last();
+            maxID = result.getInt("ID"); // Donne le dernier ID
+            //rs.beforeFirst();
+            
+        } catch (SQLException ex) {}
+        return maxID;
+    }
 }

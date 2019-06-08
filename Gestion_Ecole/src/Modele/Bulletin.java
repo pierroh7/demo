@@ -41,4 +41,16 @@ public class Bulletin {
     public void setAppreciation(String val) {  }
     public void setDetailsBulletin(HashMap<Integer, DetailBulletin> val) { this.detailsBulletin = new HashMap<>(val); }
     public void setSingleDetail(int cle, DetailBulletin val) { this.detailsBulletin.replace(cle, val); }
+
+    void saveDetailsBulletin() {
+        DAO<DetailBulletin> detailBulletinDAO = DAOFactory.getDetailBulletinDAO();
+        
+        for (DetailBulletin d : this.detailsBulletin.values()) {
+            detailBulletinDAO.create(d);
+        }
+    }
+    
+    void ajouterDetailBulletin(int cleDetailMax, DetailBulletin val) {
+        this.detailsBulletin.put(cleDetailMax, val);
+    }
 } 

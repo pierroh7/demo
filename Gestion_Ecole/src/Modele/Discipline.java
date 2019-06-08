@@ -11,12 +11,10 @@ package Modele;
  * @author Nathan
  */
 public class Discipline {
-    
     private int ID;
     private String nom;
     
     public Discipline() {}
-    
     public Discipline(int _ID, String _nom) {
         this.ID = _ID;
         this.nom = _nom;

@@ -20,8 +20,18 @@ public class EnseignantDAO extends DAO<Enseignant> {
     }
     
     @Override
-    public boolean create(Enseignant obj) {
-        return false;
+    public boolean create(Enseignant o) {
+        try {
+            String query = "INSERT INTO personne (ID, Nom, Prenom, Type)"
+                         + " VALUES (?, ?, ?, ?)";
+            PreparedStatement preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.setInt(1, o.getID());
+            preparedStmt.setString (2, o.getNom());
+            preparedStmt.setString   (3, o.getPrenom());
+            preparedStmt.setString(4, "Enseignant");
+            preparedStmt.execute();
+        } catch (SQLException ex) { System.out.println("Ajout enseignant echoue."); }        
+        return true;
     }
     
     @Override
@@ -30,7 +40,7 @@ public class EnseignantDAO extends DAO<Enseignant> {
     }
     
     @Override
-    public boolean update(Enseignant obj) {
+    public boolean update(Enseignant o) {
         return false;
     }
 
@@ -80,5 +90,15 @@ public class EnseignantDAO extends DAO<Enseignant> {
         } catch (SQLException ex) {}
 
         return profs;
+    }
+
+    @Override
+    public void deteleTable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getMaxID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

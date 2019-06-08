@@ -15,7 +15,6 @@ public class Enseignant extends Personne {
     private HashMap<Integer, Enseignement> enseignements;
     
     public Enseignant() {}
-    
     public Enseignant(int _ID, int _acces, String _nom, String _prenom) {
         super(_ID, _acces, _nom, _prenom);
         
@@ -30,4 +29,12 @@ public class Enseignant extends Personne {
     public HashMap<Integer, Enseignement> getEnseignements() { return this.enseignements; }
     
     public void setEnseignements(HashMap<Integer, Enseignement> val) { this.enseignements = new HashMap<>(val); }
+
+    void saveEnseignements() {
+        DAO<Enseignement> enseignementDAO = DAOFactory.getEnseignementDAO();
+        
+        for (Enseignement e : this.enseignements.values()) {
+            enseignementDAO.create(e);
+        }
+    }
 }

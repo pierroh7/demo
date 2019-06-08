@@ -47,4 +47,42 @@ public class EcoleDAO extends DAO<Ecole> {
     public HashMap<Integer, Ecole> getTable() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void deteleTable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void deleteAllTables() {
+        DAO<Eleve> eleveDAO = DAOFactory.getEleveDAO();
+        DAO<Niveau> niveauDAO = DAOFactory.getNiveauDAO();
+        DAO<Discipline> disciplineDAO = DAOFactory.getDisciplineDAO();
+        DAO<Annee> anneeDAO = DAOFactory.getAnneeDAO();
+        DAO<Classe> classeDAO = DAOFactory.getClasseDAO();
+        DAO<Trimestre> trimestreDAO = DAOFactory.getTrimestreDAO();
+        DAO<Inscription> inscriptionDAO = DAOFactory.getInscriptionDAO();
+        DAO<Enseignement> enseignementDAO = DAOFactory.getEnseignementDAO();
+        DAO<Bulletin> bulletinDAO = DAOFactory.getBulletinDAO();
+        DAO<DetailBulletin> detailBulletinDAO = DAOFactory.getDetailBulletinDAO();
+        DAO<Evaluation> evaluationDAO = DAOFactory.getEvaluationDAO();
+        
+        eleveDAO.deteleTable();
+        niveauDAO.deteleTable();
+        disciplineDAO.deteleTable();
+        anneeDAO.deteleTable();
+        classeDAO.deteleTable();
+        trimestreDAO.deteleTable();
+        inscriptionDAO.deteleTable();
+        enseignementDAO.deteleTable();
+        bulletinDAO.deteleTable();
+        detailBulletinDAO.deteleTable();
+        evaluationDAO.deteleTable();
+    }
+
+    @Override
+    public int getMaxID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 }

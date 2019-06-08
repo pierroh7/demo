@@ -6,6 +6,7 @@
 package Modele;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -21,7 +22,15 @@ public class NiveauDAO extends DAO<Niveau> {
     }
     @Override
     public boolean create(Niveau o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String query = "INSERT INTO niveau (ID, Nom)"
+                         + " VALUES (?, ?)";
+            PreparedStatement preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.setInt(1, o.getID());
+            preparedStmt.setString(2, o.getNom());
+            preparedStmt.execute();
+        } catch (SQLException ex) { System.out.println("Ajout niveau echoue."); }
+        return true;
     }
 
     @Override
@@ -57,5 +66,33 @@ public class NiveauDAO extends DAO<Niveau> {
 
         return niveaux;      
     }
+
+    @Override
+    public void deteleTable() {
+        try {
+            String query = "DELETE FROM niveau";
+            PreparedStatement preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.execute();
+            System.out.println("Table niveau supprimee");
+            
+            query = "ALTER TABLE niveau AUTO_INCREMENT = 1";
+            preparedStmt = this.co.prepareStatement(query);
+            preparedStmt.execute();
+            System.out.println("AutoIncrement a 1");
+            
+        } catch (SQLException ex) { System.out.println("Suppression de table niveau echouee."); }
+    }
     
+    @Override
+    public int getMaxID() {
+        int maxID = 0;
+        try {      
+            ResultSet result = this.co.createStatement().executeQuery("SELECT * FROM niveau");
+            result.last();
+            maxID = result.getInt("ID"); // Donne le dernier ID
+            //rs.beforeFirst();
+            
+        } catch (SQLException ex) {}
+        return maxID;
+    }
 }
