@@ -7,6 +7,8 @@ package Affichage;
 
 import Modele.*;
 import java.util.TreeMap;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,6 +30,17 @@ public class Affichage {
     public void AfficherEleves(TreeMap<Integer, Eleve> eleves) {
         for (Eleve e : eleves.values()) {
             System.out.println("ID = " + e.getID() + "\tNom = " + e.getNom() + "\tPrenom = " + e.getPrenom());
+        }
+    }
+    
+    public void afficherElevesJTable(JTable jTable1, TreeMap<Integer, Eleve> eleves) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        Object rowData[] = new Object[3];
+        for (Eleve e : eleves.values()) {
+            rowData[0] = e.getID();
+            rowData[1] = e.getNom();
+            rowData[2] = e.getPrenom();
+            model.addRow(rowData);
         }
     }
 }

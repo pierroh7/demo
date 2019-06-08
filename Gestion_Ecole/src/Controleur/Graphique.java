@@ -28,7 +28,8 @@ public class Graphique extends javax.swing.JFrame {
 
         A.AfficherEleves(this.ecole.getEleves());
         initComponents();
-        afficherElevesJTable();
+        A.afficherElevesJTable(jTable1, this.ecole.getEleves());
+        //afficherElevesJTable();
     }
     
     public void afficherElevesJTable() {
