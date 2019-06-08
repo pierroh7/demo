@@ -50,7 +50,12 @@ public class Bulletin {
         }
     }
     
-    void ajouterDetailBulletin(int cleDetailMax, DetailBulletin val) {
+    public void ajouterDetailBulletin(int cleDetailMax, DetailBulletin val) {
         this.detailsBulletin.put(cleDetailMax, val);
+        // augmenter la cle max
+    }
+    
+    public void supprimerDetailBulletin(int cleSupp) {
+        this.detailsBulletin.remove(cleSupp);
     }
 } 

@@ -24,13 +24,14 @@ public class DetailBulletinDAO extends DAO<DetailBulletin> {
     @Override
     public boolean create(DetailBulletin o) {
         try {
-            String query = "INSERT INTO detailbulletin (ID, IDEnseignement, IDBulletin, Appreciation)"
+            String query = "INSERT INTO detailbulletin (ID, IDEnseignement, IDBulletin, Coefficient, Appreciation)"
                          + " VALUES (?, ?, ?, ?)";
             PreparedStatement preparedStmt = this.co.prepareStatement(query);
             preparedStmt.setInt(1, o.getID());
             preparedStmt.setInt(2, o.getID_Enseignement());
             preparedStmt.setInt(3, o.getID_Bulletin());
-            preparedStmt.setString(4, o.getAppreciation());
+            preparedStmt.setInt(4, o.getCoefficient());
+            preparedStmt.setString(5, o.getAppreciation());
             preparedStmt.execute();
         } catch (SQLException ex) { System.out.println("Ajout detailbulletin echoue."); ex.printStackTrace(); }
         return true; 
@@ -71,6 +72,7 @@ public class DetailBulletinDAO extends DAO<DetailBulletin> {
                         ID,
                         rs.getInt("IDBulletin"),
                         rs.getInt("IDEnseignement"),
+                        rs.getInt("Coefficient"),
                         rs.getString("Appreciation")));
             }
         } catch (SQLException ex) {}

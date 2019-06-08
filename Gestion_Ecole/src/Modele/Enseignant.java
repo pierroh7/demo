@@ -30,11 +30,20 @@ public class Enseignant extends Personne {
     
     public void setEnseignements(HashMap<Integer, Enseignement> val) { this.enseignements = new HashMap<>(val); }
 
-    void saveEnseignements() {
+    public void saveEnseignements() {
         DAO<Enseignement> enseignementDAO = DAOFactory.getEnseignementDAO();
         
         for (Enseignement e : this.enseignements.values()) {
             enseignementDAO.create(e);
         }
+    }
+    
+    public void ajouterEnseignement(int cleEnseignementMax, Enseignement val) {
+        this.enseignements.put(cleEnseignementMax, val);
+        // augmenter la cle max
+    }
+    
+    public void supprimerEnseignement(int cleSupp) {
+        this.enseignements.remove(cleSupp);
     }
 }

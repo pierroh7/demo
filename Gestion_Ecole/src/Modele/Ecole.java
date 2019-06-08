@@ -6,13 +6,14 @@
 package Modele;
 
 import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
  *
  * @author Nathan
  */
 public class Ecole {
-    private HashMap<Integer, Eleve> eleves;
+    private TreeMap<Integer, Eleve> eleves;
     private HashMap<Integer, Enseignant> enseignants;
     private HashMap<Integer, Directeur> directeurs;
     private HashMap<Integer, Discipline> disciplines;
@@ -31,7 +32,7 @@ public class Ecole {
         DAO<Niveau> niveauDAO = DAOFactory.getNiveauDAO();
         DAO<Annee> anneeDAO = DAOFactory.getAnneeDAO();
         
-        this.eleves = new HashMap<>(eleveDAO.getTable()); // Récupère les élèves
+        this.eleves = new TreeMap<>(eleveDAO.getTable()); // Récupère les élèves
         this.enseignants = new HashMap<>(enseignantDAO.getTable()); // Récupère les profs
         this.directeurs = new HashMap<>(directeurDAO.getTable()); // Récupère les directeurs
         this.disciplines = new HashMap<>(disciplineDAO.getTable()); // Récupère les disciplines
@@ -40,10 +41,11 @@ public class Ecole {
         this.clesMax = new HashMap<>();
         
         this.addClesMax(); // Pour l'auto incrémentation des ID 
+        System.out.println("Ecole chargee");
     }
     
     // Getters
-    public HashMap<Integer, Eleve> getEleves() { return this.eleves; }
+    public TreeMap<Integer, Eleve> getEleves() { return this.eleves; }
     public HashMap<Integer, Enseignant> getEnseignants() { return this.enseignants; }
     public HashMap<Integer, Directeur> getDirecteurs() { return this.directeurs; }
     public HashMap<Integer, Discipline> getDisciplines() { return this.disciplines; }
@@ -169,7 +171,7 @@ public class Ecole {
     }
     
     /**
-     * Ajoute une personne de type, élève, directeur ou enseignant à la HashMap.
+     * Ajoute une personne de type élève, directeur ou enseignant à la HashMap.
      * @param e la personne à ajouter
      * @param type 1 pour un élève, 2 pour un directeur, 3 pour un enseignant
      */
@@ -180,4 +182,33 @@ public class Ecole {
         this.incrementCleMax("Personne");
         System.out.println("Personne ajoutee");
     }
+    
+    /**
+     * Supprime une personne de type élève, directeur ou enseignant à la HashMap.
+     * @param cleSupp la clé associée à la personne à supprimer
+     * @param type 1 pour un élève, 2 pour un directeur, 3 pour un enseignant (évite de supprimer un champ null)
+     */
+    public void supprimerPersonne(int cleSupp, int type) {
+        if (type == 1) this.eleves.remove(cleSupp);
+        if (type == 2) this.directeurs.remove(cleSupp);
+        if (type == 3) this.enseignants.remove(cleSupp);
+    }
+    
+    /**
+     * Ajoute une discipline à la HashMap.
+     * @param val la discipline à ajouter
+     */
+    public void ajouterDiscipline(Discipline val) {
+        this.disciplines.put(this.clesMax.get("Discipline"), val);
+        this.incrementCleMax("Discipline");
+    }
+    
+    /**
+     * Supprime une discipline.
+     * @param cleSupp la clé associée à la personne à supprimer
+     */
+    public void supprimerDiscipline(int cleSupp) {
+        this.disciplines.remove(cleSupp);
+    }
+
 }

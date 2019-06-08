@@ -30,7 +30,7 @@ public class Annee {
     public void setTrimestres(HashMap<Integer, Trimestre> val) { this.trimestres = new HashMap<>(val); }
     public void setSingleTrimestre(int cle, Trimestre val ) { this.trimestres.replace(cle, val); }
 
-    void saveTrimestres() {
+    public void saveTrimestres() {
         DAO<Trimestre> trimestreDAO = DAOFactory.getTrimestreDAO();
         
         for (Trimestre t : this.trimestres.values()) {

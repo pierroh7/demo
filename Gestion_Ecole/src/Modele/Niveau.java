@@ -42,4 +42,13 @@ public class Niveau {
             classeDAO.create(c);
         }
     }
+    
+    public void ajouterClasse(int cleClasseMax, Classe val) {
+        this.classes.put(cleClasseMax, val);
+        // augmenter la cle max
+    }
+    
+    public void supprimerClasse(int cleSupp) {
+        this.classes.remove(cleSupp);
+    }
 }

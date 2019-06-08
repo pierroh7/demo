@@ -32,7 +32,5 @@ public class Enseignement {
     public void setID_Discipline(int val) { this.ID_Discipline = val; }
     public void setID_Enseignant(int val) { this.ID_Enseignant = val; }
     public void setID_Classe(int val) { this.ID_Classe = val; }
-    
-    
-    
+
 }

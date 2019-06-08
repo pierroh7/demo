@@ -32,11 +32,20 @@ public class Eleve extends Personne {
     
     public void setInscriptions(HashMap<Integer, Inscription> val) { this.inscriptions = new HashMap<>(val); }
 
-    void saveInscriptions() {
+    public void saveInscriptions() {
         DAO<Inscription> inscriptionDAO = DAOFactory.getInscriptionDAO();
         
         for (Inscription i : this.inscriptions.values()) {
             inscriptionDAO.create(i);
         }
+    }
+    
+    public void ajouterInscription(int cleInscriptionMax, Inscription val) {
+        this.inscriptions.put(cleInscriptionMax, val);
+        // augmenter la cle max
+    }
+    
+    public void supprimerEnseignement(int cleSupp) {
+        this.inscriptions.remove(cleSupp);
     }
 }

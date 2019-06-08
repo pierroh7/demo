@@ -38,11 +38,20 @@ public class Inscription {
     public void setBulletins(HashMap<Integer, Bulletin> val) { this.bulletins = new HashMap<>(val); }
     public void setSingleBulletin(int cle, Bulletin val) { this.bulletins.replace(cle, val); }
 
-    void saveBulletins() {
+    public void saveBulletins() {
         DAO<Bulletin> bulletinDAO = DAOFactory.getBulletinDAO();
         
         for (Bulletin b : this.bulletins.values()) {
             bulletinDAO.create(b);
         }
+    }
+    
+    public void ajouterBulletin(int cleBulletinMax, Bulletin val) {
+        this.bulletins.put(cleBulletinMax, val);
+        // augmenter la cle max
+    }
+    
+    public void supprimerClasse(int cleSupp) {
+        this.bulletins.remove(cleSupp);
     }
 }
