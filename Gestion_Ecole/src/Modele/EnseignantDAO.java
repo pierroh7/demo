@@ -72,10 +72,10 @@ public class EnseignantDAO extends DAO<Enseignant> {
     public HashMap<Integer, Enseignant> getTable() {
         HashMap<Integer, Enseignant> profs = new HashMap<>();
         try {
-            ResultSet result = this.co.createStatement().executeQuery("SELECT * FROM personne WHERE Type = 'Enseignant'");
-            while(result.next()) {
-                int ID = result.getInt("ID");
-                profs.put(ID, new Enseignant(ID, 1, result.getString("Nom"), result.getString("Prenom")));
+            ResultSet rs = this.co.createStatement().executeQuery("SELECT * FROM personne WHERE Type = 'Enseignant'");
+            while(rs.next()) {
+                int ID = rs.getInt("ID");
+                profs.put(ID, new Enseignant(ID, 1, rs.getString("Nom"), rs.getString("Prenom")));
             }
         } catch (SQLException ex) {}
 

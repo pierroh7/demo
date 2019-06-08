@@ -6,6 +6,8 @@
 package Modele;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 /**
@@ -44,7 +46,16 @@ public class NiveauDAO extends DAO<Niveau> {
 
     @Override
     public HashMap<Integer, Niveau> getTable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        HashMap<Integer, Niveau> niveaux = new HashMap<>();
+        try {
+            ResultSet rs = this.co.createStatement().executeQuery("SELECT * FROM niveau");
+            while(rs.next()) {
+                int ID = rs.getInt("ID");
+                niveaux.put(ID, new Niveau(ID,rs.getString("Nom")));
+            }
+        } catch (SQLException ex) {}
+
+        return niveaux;      
     }
     
 }

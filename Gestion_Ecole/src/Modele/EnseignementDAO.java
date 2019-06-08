@@ -6,6 +6,8 @@
 package Modele;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 /**
@@ -48,4 +50,20 @@ public class EnseignementDAO extends DAO<Enseignement> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    public HashMap<Integer, Enseignement> getTableSpecID(int ID_Enseignant) {
+        HashMap<Integer, Enseignement> enseignements = new HashMap<>();
+        try {
+            ResultSet rs = this.co.createStatement().executeQuery("SELECT * FROM enseignement WHERE IDEnseignant = " + ID_Enseignant);
+            while(rs.next()) {
+                int ID = rs.getInt("ID");
+                enseignements.put(ID, new Enseignement(
+                        ID,
+                        rs.getInt("IDDiscipline"),
+                        rs.getInt("IDEnseignant"), 
+                        rs.getInt("IDClasse")));
+            }
+        } catch (SQLException ex) {}        
+        
+        return enseignements;   
+    }
 }

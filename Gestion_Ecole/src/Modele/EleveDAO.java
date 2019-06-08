@@ -70,10 +70,10 @@ public class EleveDAO extends DAO<Eleve> {
     public HashMap<Integer, Eleve> getTable() {
         HashMap<Integer, Eleve> eleves = new HashMap<>();
         try {
-            ResultSet result = this.co.createStatement().executeQuery("SELECT * FROM personne WHERE Type = 'Etudiant'");
-            while(result.next()) {
-                int ID = result.getInt("ID");
-                eleves.put(ID, new Eleve(ID, 0, result.getString("Nom"), result.getString("Prenom")));
+            ResultSet rs = this.co.createStatement().executeQuery("SELECT * FROM personne WHERE Type = 'Etudiant'");
+            while(rs.next()) {
+                int ID = rs.getInt("ID");
+                eleves.put(ID, new Eleve(ID, 0, rs.getString("Nom"), rs.getString("Prenom")));
             }
         } catch (SQLException ex) {}
 

@@ -27,8 +27,11 @@ public class Maintest {
             
             for (Eleve e : ecole.getEleves().values()) {
                 System.out.println(e.getNom() + " " + e.getPrenom());
-                for (Inscription i : e.getClasses().values()) {
+                for (Inscription i : e.getInscriptions().values()) {
                     System.out.println(i.getID() + " " + i.getID_Classe() + " " + i.getID_Eleve());
+                    for (Bulletin b : i.getBulletins().values()) {
+                        System.out.println(b.getID() + " " + b.getAppreciation());
+                    }
                 }
             }
             for (Directeur d : ecole.getDirecteurs().values()) {

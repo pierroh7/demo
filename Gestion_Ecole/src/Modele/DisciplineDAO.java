@@ -46,7 +46,18 @@ public class DisciplineDAO extends DAO<Discipline> {
 
     @Override
     public HashMap<Integer, Discipline> getTable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        HashMap<Integer, Discipline> disciplines = new HashMap<>();
+        try {
+            ResultSet rs = this.co.createStatement().executeQuery("SELECT * FROM discipline");
+            while(rs.next()) {
+                int ID = rs.getInt("ID");
+                disciplines.put(ID, new Discipline(
+                        ID,
+                        rs.getString("Nom")));
+            }
+        } catch (SQLException ex) {}
+
+        return disciplines;    
     }
     
 }

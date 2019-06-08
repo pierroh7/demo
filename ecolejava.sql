@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 07 juin 2019 à 23:17
+-- Généré le :  sam. 08 juin 2019 à 11:19
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.14
 
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `bulletin` (
 --
 
 INSERT INTO `bulletin` (`ID`, `IDInscription`, `IDTrimestre`, `Appreciation`) VALUES
-(1, 1, 1, '');
+(1, 1, 1, 'Bon eleve');
 
 -- --------------------------------------------------------
 
@@ -143,26 +143,26 @@ INSERT INTO `discipline` (`ID`, `Nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `enseignent`
+-- Structure de la table `enseignement`
 --
 
-DROP TABLE IF EXISTS `enseignent`;
-CREATE TABLE IF NOT EXISTS `enseignent` (
+DROP TABLE IF EXISTS `enseignement`;
+CREATE TABLE IF NOT EXISTS `enseignement` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `IDClasse` int(11) NOT NULL,
   `IDDiscipline` int(11) NOT NULL,
-  `IDProfesseur` int(11) NOT NULL,
+  `IDEnseignant` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `IDClasse` (`IDClasse`),
   KEY `IDDiscipline` (`IDDiscipline`),
-  KEY `IDProfesseur` (`IDProfesseur`)
+  KEY `IDProfesseur` (`IDEnseignant`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `enseignent`
+-- Déchargement des données de la table `enseignement`
 --
 
-INSERT INTO `enseignent` (`ID`, `IDClasse`, `IDDiscipline`, `IDProfesseur`) VALUES
+INSERT INTO `enseignement` (`ID`, `IDClasse`, `IDDiscipline`, `IDEnseignant`) VALUES
 (1, 3, 1, 4),
 (2, 4, 1, 4),
 (3, 5, 1, 4);
@@ -338,15 +338,15 @@ ALTER TABLE `classe`
 --
 ALTER TABLE `detailbulletin`
   ADD CONSTRAINT `FK_BULLETIN_DETAIL` FOREIGN KEY (`IDBulletin`) REFERENCES `bulletin` (`ID`),
-  ADD CONSTRAINT `FK_ENSEIGNEMENT_DETAIL` FOREIGN KEY (`IDEnseignement`) REFERENCES `enseignent` (`ID`);
+  ADD CONSTRAINT `FK_ENSEIGNEMENT_DETAIL` FOREIGN KEY (`IDEnseignement`) REFERENCES `enseignement` (`ID`);
 
 --
--- Contraintes pour la table `enseignent`
+-- Contraintes pour la table `enseignement`
 --
-ALTER TABLE `enseignent`
+ALTER TABLE `enseignement`
   ADD CONSTRAINT `FK_CLASSE_ENSEIGNEMENT` FOREIGN KEY (`IDClasse`) REFERENCES `classe` (`ID`),
   ADD CONSTRAINT `FK_DISCIPLINE_ENSEIGNEMENT` FOREIGN KEY (`IDDiscipline`) REFERENCES `discipline` (`ID`),
-  ADD CONSTRAINT `FK_PROFESSEUR_ENSEIGNEMENT` FOREIGN KEY (`IDProfesseur`) REFERENCES `personne` (`ID`);
+  ADD CONSTRAINT `FK_PROFESSEUR_ENSEIGNEMENT` FOREIGN KEY (`IDEnseignant`) REFERENCES `personne` (`ID`);
 
 --
 -- Contraintes pour la table `evaluation`

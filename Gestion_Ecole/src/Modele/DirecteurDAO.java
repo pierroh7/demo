@@ -49,10 +49,10 @@ public class DirecteurDAO extends DAO<Directeur> {
     public HashMap<Integer, Directeur> getTable() {
         HashMap<Integer, Directeur> directeurs = new HashMap<>();
         try {
-            ResultSet result = this.co.createStatement().executeQuery("SELECT * FROM personne WHERE Type = 'Directeur'");
-            while(result.next()) {
-                int ID = result.getInt("ID");
-                directeurs.put(ID, new Directeur(ID, 2, result.getString("Nom"), result.getString("Prenom")));
+            ResultSet rs = this.co.createStatement().executeQuery("SELECT * FROM personne WHERE Type = 'Directeur'");
+            while(rs.next()) {
+                int ID = rs.getInt("ID");
+                directeurs.put(ID, new Directeur(ID, 2, rs.getString("Nom"), rs.getString("Prenom")));
             }
         } catch (SQLException ex) {}
 

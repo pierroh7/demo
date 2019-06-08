@@ -18,9 +18,10 @@ public class DAOFactory {
      *
      * @return DAO
      */
+    public static DAO getAnneeDAO() { return new AnneeDAO(conn); }
     public static DAO getBulletinDAO() { return new BulletinDAO(conn); }
     public static DAO getClasseDAO() { return new ClasseDAO(conn); }
-    public DAO getDetailBulletinDAO() { return new DetailBulletinDAO(conn); }
+    public static DAO getDetailBulletinDAO() { return new DetailBulletinDAO(conn); }
     public static DAO getDirecteurDAO() { return new DirecteurDAO(conn); }
     public static DAO getDisciplineDAO() { return new DisciplineDAO(conn); }
     public static DAO getEcoleDAO() { return new EcoleDAO(conn); }
@@ -29,5 +30,7 @@ public class DAOFactory {
     public static DAO getEnseignementDAO() { return new EnseignementDAO(conn); }
     public static DAO getEvaluationDAO() { return new EvaluationDAO(conn); }
     public static DAO getInscriptionDAO() { return new InscriptionDAO(conn); }
+    public static DAO getNiveauDAO() { return new NiveauDAO(conn); }
+    public static DAO getTrimestreDAO() { return new TrimestreDAO(conn); }
 
 }

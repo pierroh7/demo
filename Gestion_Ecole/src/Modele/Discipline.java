@@ -14,4 +14,20 @@ public class Discipline {
     
     private int ID;
     private String nom;
+    
+    public Discipline() {}
+    
+    public Discipline(int _ID, String _nom) {
+        this.ID = _ID;
+        this.nom = _nom;
+    }
+
+    public int getID() { return this.ID; }
+    public String getNom() { return this.nom; }
+    
+    public void setID(int val) { this.ID = val; }
+    public void setID(String val) { this.nom = val; }
+    
+
+
 }

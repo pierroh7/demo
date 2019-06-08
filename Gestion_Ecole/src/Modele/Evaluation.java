@@ -23,4 +23,18 @@ public class Evaluation {
         this.coefficient = _coef;
         this.appreciation = _app;
     }
+
+    public int getID() { return this.ID; }
+    public int getID_DetailBulletin() { return this.ID_DetailBulletin; }
+    public double getNote() { return this.note; }
+    public int getCoefficient() { return this.coefficient; }
+    public String getAppreciation() { return this.appreciation; }
+
+    public void setID(int val) { this.ID = val; }
+    public void setID_DetailBulletin(int val) { this.ID_DetailBulletin = val; }
+    public void setNote(double val) { this.note = val; }
+    public void setCoefficient(int val) { this.coefficient = val; }
+    public void setAppreciation(String val) { this.appreciation = val; }
+    
+    
 }

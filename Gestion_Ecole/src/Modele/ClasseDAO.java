@@ -49,4 +49,21 @@ public class ClasseDAO extends DAO<Classe> {
     public HashMap<Integer, Classe> getTable() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public HashMap<Integer, Classe> getTableSpecID(int ID_Niveau) {
+        HashMap<Integer, Classe> classes = new HashMap<>();
+        try {
+            ResultSet rs = this.co.createStatement().executeQuery("SELECT * FROM classe WHERE IDNiveau = " + ID_Niveau);
+            while(rs.next()) {
+                int ID = rs.getInt("ID");
+                classes.put(ID, new Classe(
+                        ID,
+                        rs.getInt("IDNiveau"),
+                        rs.getInt("IDAnnee"), 
+                        rs.getString("Nom")));
+            }
+        } catch (SQLException ex) {}        
+        
+        return classes;   
+    }
 }

@@ -18,5 +18,5 @@ public class Directeur extends Personne {
 
     public Directeur(Eleve e) {
         super(e.getID(), e.getAcces(), e.getNom(), e.getPrenom());
-    }
+    }    
 }

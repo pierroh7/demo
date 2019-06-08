@@ -15,19 +15,22 @@ import java.util.HashMap;
 public class Eleve extends Personne {
     
     // Un élève possède plus d'une inscription (sur plusieurs années)
-    private HashMap<Integer, Inscription> classes;
+    private HashMap<Integer, Inscription> inscriptions;
     
     public Eleve() {}
     
     public Eleve(int _ID, int _acces, String _nom, String _prenom) {
         super(_ID, _acces, _nom, _prenom);
+        
         DAO<Inscription> inscriptionDAO = DAOFactory.getInscriptionDAO();
-        this.classes = new HashMap<>(((InscriptionDAO) inscriptionDAO).getTableSpecID(this.ID));
+        this.inscriptions = new HashMap<>(((InscriptionDAO) inscriptionDAO).getTableSpecID(this.ID));
     }
 
     public Eleve(Eleve e) {
         super(e.getID(), e.getAcces(), e.getNom(), e.getPrenom());
     }
     
-    public HashMap<Integer, Inscription> getClasses() { return this.classes; }
+    public HashMap<Integer, Inscription> getInscriptions() { return this.inscriptions; }
+    
+    public void setInscriptions(HashMap<Integer, Inscription> val) { this.inscriptions = new HashMap<>(val); }
 }

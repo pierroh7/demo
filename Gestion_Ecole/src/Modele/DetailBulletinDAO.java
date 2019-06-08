@@ -6,6 +6,8 @@
 package Modele;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 /**
@@ -47,5 +49,21 @@ public class DetailBulletinDAO extends DAO<DetailBulletin> {
     public HashMap<Integer, DetailBulletin> getTable() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public HashMap<Integer, DetailBulletin> getTableSpecID(int ID_Bulletin) {
+        HashMap<Integer, DetailBulletin> detailsBulletin = new HashMap<>();
+        try {
+            ResultSet rs = this.co.createStatement().executeQuery("SELECT * FROM detailbulletin WHERE IDBulletin = " + ID_Bulletin);
+            while (rs.next()) {
+                int ID = rs.getInt("ID");
+                detailsBulletin.put(ID, new DetailBulletin(
+                        ID,
+                        rs.getInt("IDBulletin"),
+                        rs.getInt("IDEnseignement"),
+                        rs.getString("Appreciation")));
+            }
+        } catch (SQLException ex) {}
+        return detailsBulletin;
+    }        
     
 }
