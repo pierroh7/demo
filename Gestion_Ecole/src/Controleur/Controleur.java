@@ -96,4 +96,47 @@ public class Controleur {
         return new Trimestre();
     }
 
+    public Enseignement getEnseignementFromID(int enseignementID, HashMap<Integer, Enseignant> enseignants) {
+        for (Enseignant e : enseignants.values()) {
+            for (Enseignement ee : e.getEnseignements().values()) {
+                if (enseignementID == ee.getID()) return ee;
+            }
+        }
+        return new Enseignement();
+    }
+    
+    public Discipline getDisciplineFromID(int disciplineID, HashMap<Integer, Discipline> disciplines) {
+        for (Discipline d : disciplines.values()) {
+            if (disciplineID == d.getID()) return d;
+        }
+        return new Discipline();
+    }
+    
+    public Niveau getNiveauFromNom(String niveauNom, HashMap<Integer, Niveau> niveaux) {
+        for (Niveau n : niveaux.values()) {
+            if (niveauNom == n.getNom()) return n;
+        }
+        return new Niveau();
+    }
+    
+    public Niveau getNiveauFromID(int niveauID, HashMap<Integer, Niveau> niveaux) {
+        for (Niveau n : niveaux.values()) {
+            if (niveauID == n.getID()) return n;
+        }
+        return new Niveau();
+    }
+
+    public boolean checkClasseEleve(int classeID, HashMap<Integer,Inscription> inscriptions ) {
+        for (Inscription i : inscriptions.values()) {
+            if (classeID == i.getID_Classe()) return false;
+        }
+        return true;
+    }
+
+    public Annee getAnneeFromID(int classeID, HashMap<Integer, Annee> annees, HashMap<Integer, Niveau> niveaux) {
+        for (Annee a : annees.values()) {
+            if (this.getClasseFromID(classeID, niveaux).getID_Annee() == a.getID()) return a;
+        }
+        return new Annee();
+    }
 }

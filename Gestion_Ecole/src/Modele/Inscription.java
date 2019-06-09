@@ -51,7 +51,7 @@ public class Inscription {
         // augmenter la cle max
     }
     
-    public void supprimerClasse(int cleSupp) {
+    public void supprimerBulletin(int cleSupp) {
         this.bulletins.remove(cleSupp);
     }
 }

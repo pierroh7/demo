@@ -9,6 +9,7 @@ import Controleur.Controleur;
 import Modele.*;
 import java.util.HashMap;
 import java.util.TreeMap;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -84,6 +85,80 @@ public class Affichage {
             rowData[2] = C.moyenneBulletin(b); // moyenne
             rowData[3] = b.getAppreciation(); // appreciation
             model.addRow(rowData);
+        }
+    }
+
+    public void afficherDetailsBulletin(JTable jTable1, Bulletin bulletin, HashMap<Integer, Enseignant> enseignants, HashMap<Integer, Discipline> disciplines) {
+        Controleur C = new Controleur();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        Object rowData[] = new Object[5];
+        model.setNumRows(0);
+        
+        for (DetailBulletin d : bulletin.getDetailsBulletin().values()) {
+            rowData[0] =  d.getID(); // id detailbulletin
+            rowData[1] = C.getDisciplineFromID(C.getEnseignementFromID(d.getID_Enseignement(), enseignants).getID_Discipline(), disciplines).getNom(); // nom discipline
+            rowData[2] = C.moyenneDetailBulletin(d); // moyenne
+            rowData[3] = d.getCoefficient(); // moyenne
+            rowData[4] = d.getAppreciation(); // appreciation
+            model.addRow(rowData);
+        }
+    }
+    
+    public void afficherNotesDetails(JTable jTable1, DetailBulletin detailBulletin) {
+        Controleur C = new Controleur();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        Object rowData[] = new Object[4];
+        model.setNumRows(0);
+        
+        for (Evaluation e : detailBulletin.getNotes().values()) {
+            rowData[0] =  e.getID(); // id note
+            rowData[1] = e.getNote(); // note
+            rowData[2] = e.getCoefficient(); // coefficient
+            rowData[3] = e.getAppreciation(); // appreciation
+            model.addRow(rowData);
+        }
+    }
+
+    public void afficherEnseignantsJTable(JTable jTable1, HashMap<Integer, Enseignant> enseignants) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        Object rowData[] = new Object[3];
+        model.setNumRows(0);
+        for (Enseignant e : enseignants.values()) {
+            rowData[0] = e.getID();
+            rowData[1] = e.getNom();
+            rowData[2] = e.getPrenom();
+            model.addRow(rowData);
+        }
+    }
+    
+    public void afficherNiveauxJBox(JComboBox jComboBox1, HashMap<Integer,Niveau> niveaux) {
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>());
+        for (Niveau n : niveaux.values()) {
+            jComboBox1.addItem(n.getNom());
+        }
+    }
+    
+    public void afficherAnneeJBox(JComboBox jComboBox1, HashMap<Integer, Annee> annees) {
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>());
+        for (Annee a : annees.values()) {
+            jComboBox1.addItem(a.getID());
+        }
+    }
+
+    public void afficherClassesJTable(JTable jTable1, HashMap<Integer, Niveau> niveaux) {
+        Controleur co = new Controleur();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        Object rowData[] = new Object[4];
+        model.setNumRows(0);
+        for (Niveau n : niveaux.values()) {
+            for (Classe c : n.getClasses().values()) {
+                rowData[0] = c.getID();
+                rowData[1] = c.getNom();
+                rowData[2] = co.getNiveauFromID(c.getID_Niveau(), niveaux).getNom(); // nom niveau
+                rowData[3]  = c.getID_Annee();
+                model.addRow(rowData);
+            }
+
         }
     }
 }

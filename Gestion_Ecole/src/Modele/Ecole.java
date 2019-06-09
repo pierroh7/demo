@@ -52,6 +52,7 @@ public class Ecole {
     public HashMap<Integer, Niveau> getNiveaux() { return this.niveaux; }
     public HashMap<Integer, Annee> getAnnees() { return this.annees; }
     public HashMap<String, Integer> getClesMax() { return this.clesMax; }
+    public Integer getSingleCleMax(String cle) { return this.clesMax.get(cle); }
     
     /**
      * Ajoute l'ID maximum pour chaque classe.

@@ -17,6 +17,7 @@ public class Niveau {
     private String nom;
     private HashMap<Integer, Classe> classes;
     
+    public Niveau() {}
     public Niveau(int _ID, String _nom) {
         this.ID = _ID;
         this.nom = _nom;
@@ -24,6 +25,8 @@ public class Niveau {
         DAO<Classe> classeDAO = DAOFactory.getClasseDAO();
         this.classes = new HashMap<>(((ClasseDAO) classeDAO).getTableSpecID(this.ID));
     }
+
+
 
     public int getID() { return this.ID; }
     public String getNom() { return nom; }

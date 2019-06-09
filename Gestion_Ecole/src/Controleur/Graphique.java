@@ -7,10 +7,7 @@ package Controleur;
 
 import Modele.*;
 import Affichage.*;
-import java.text.NumberFormat;
-import javax.swing.JFormattedTextField;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.text.NumberFormatter;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,7 +20,12 @@ public class Graphique extends javax.swing.JFrame {
     private Personne personneCo;
     private int selectedEleveID;
     private int selectedInscriptionID;
-    
+    private int selectedBulletinID;
+    private int selectedDetailID;
+    private int selectedEnseignantID;
+    private int selectedInscriEleveID;
+    private int selectedClasseID;
+            
     /**
      * Creates new form Graphique
      */
@@ -33,10 +35,20 @@ public class Graphique extends javax.swing.JFrame {
         this.C = new Controleur();
         this.selectedEleveID = 0;
         this.selectedInscriptionID = 0;
+        this.selectedBulletinID = 0;
+        this.selectedDetailID = 0;
+        this.selectedEnseignantID = 0;
+        this.selectedInscriEleveID = 0;
+        this.selectedClasseID = 0;
 
         
         initComponents();
         A.afficherElevesJTable(tabEleves, this.ecole.getEleves());
+        A.afficherEnseignantsJTable(tabEnseignants, this.ecole.getEnseignants());
+        A.afficherNiveauxJBox(niveauxBox, this.ecole.getNiveaux());
+        A.afficherAnneeJBox(anneeBox, this.ecole.getAnnees());
+
+
     }
     
     /**
@@ -54,10 +66,14 @@ public class Graphique extends javax.swing.JFrame {
         helloLabel = new javax.swing.JLabel();
         nomLabel = new javax.swing.JLabel();
         profilButton = new javax.swing.JButton();
-        myProfilButton = new javax.swing.JButton();
-        profButton = new javax.swing.JButton();
         directeurButton = new javax.swing.JButton();
         deconnexionButton = new javax.swing.JButton();
+        disciplinesButton = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tabEnseignants = new javax.swing.JTable();
+        suppEnsButton = new javax.swing.JButton();
+        suppEleveButton = new javax.swing.JButton();
+        saveBDDButtin = new javax.swing.JButton();
         panelConnexion = new javax.swing.JPanel();
         labelIDConnexion = new javax.swing.JLabel();
         connexionButton = new javax.swing.JButton();
@@ -72,6 +88,9 @@ public class Graphique extends javax.swing.JFrame {
         tabInscription = new javax.swing.JTable();
         bulletinButton = new javax.swing.JButton();
         backListeElvButton = new javax.swing.JButton();
+        modifEleveButton = new javax.swing.JButton();
+        newPrenomField = new javax.swing.JTextField();
+        newNomField = new javax.swing.JTextField();
         bulletinPanel = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabBulletin = new javax.swing.JTable();
@@ -80,8 +99,41 @@ public class Graphique extends javax.swing.JFrame {
         detailPanel = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tabDetail = new javax.swing.JTable();
-        ajouterNoteButton = new javax.swing.JButton();
+        noteButton = new javax.swing.JButton();
+        backBulletinButton = new javax.swing.JButton();
+        notesPanel = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tabEvaluations = new javax.swing.JTable();
+        backDetailButton = new javax.swing.JButton();
         modifNoteButton = new javax.swing.JButton();
+        ajouterNoteButton = new javax.swing.JButton();
+        directeurPanel = new javax.swing.JPanel();
+        ifDirecteurLabel = new javax.swing.JLabel();
+        addEleveButton = new javax.swing.JButton();
+        addEnsButton = new javax.swing.JButton();
+        addClassButton = new javax.swing.JButton();
+        inscriptionEleveClasseButton = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        nomAddEleveField = new javax.swing.JFormattedTextField();
+        prenomAddEleveField = new javax.swing.JFormattedTextField();
+        nomAddEleveLabel = new javax.swing.JLabel();
+        prenomAddEleveLabel = new javax.swing.JLabel();
+        nomAddEnsField = new javax.swing.JFormattedTextField();
+        prenomAddEnsField = new javax.swing.JFormattedTextField();
+        eleveAjouteLabel = new javax.swing.JLabel();
+        ensAjouteLabel = new javax.swing.JLabel();
+        niveauxBox = new javax.swing.JComboBox<>();
+        newClasseField = new javax.swing.JTextField();
+        nomClasseLabel = new javax.swing.JLabel();
+        classeAjouteLabel = new javax.swing.JLabel();
+        anneeBox = new javax.swing.JComboBox<>();
+        InscriptionPanel = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tabClasse = new javax.swing.JTable();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tabEleveInscription = new javax.swing.JTable();
+        backIfDirecteurButton = new javax.swing.JButton();
+        trueInscriEleveClasseButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -121,17 +173,13 @@ public class Graphique extends javax.swing.JFrame {
 
         nomLabel.setText("nomLabel");
 
-        profilButton.setText("Voir Profil");
+        profilButton.setText("Voir Profil Eleve");
         profilButton.setEnabled(false);
         profilButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 profilButtonMouseClicked(evt);
             }
         });
-
-        myProfilButton.setText("Mon Profil");
-
-        profButton.setText("Voir Enseignants");
 
         directeurButton.setText("Directeur stuff");
         directeurButton.setEnabled(false);
@@ -140,6 +188,54 @@ public class Graphique extends javax.swing.JFrame {
         deconnexionButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 deconnexionButtonMouseClicked(evt);
+            }
+        });
+
+        disciplinesButton.setText("Voir Disciplines");
+
+        tabEnseignants.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Identifiant", "Nom", "Prenom"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tabEnseignants.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabEnseignantsMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(tabEnseignants);
+
+        suppEnsButton.setText("Supprimer Enseignant");
+        suppEnsButton.setEnabled(false);
+        suppEnsButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                suppEnsButtonMouseClicked(evt);
+            }
+        });
+
+        suppEleveButton.setText("Supprimer Eleve");
+        suppEleveButton.setEnabled(false);
+        suppEleveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                suppEleveButtonMouseClicked(evt);
+            }
+        });
+
+        saveBDDButtin.setText("Sauvegarder BDD");
+        saveBDDButtin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                saveBDDButtinMouseClicked(evt);
             }
         });
 
@@ -158,20 +254,28 @@ public class Graphique extends javax.swing.JFrame {
                         .addGap(25, 25, 25)
                         .addGroup(panelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelBaseLayout.createSequentialGroup()
+                                .addComponent(saveBDDButtin)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(suppEleveButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(suppEnsButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(directeurButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(deconnexionButton))
+                            .addGroup(panelBaseLayout.createSequentialGroup()
                                 .addGroup(panelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(fieldSrcEleve, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(srcEleveButton)
                                     .addGroup(panelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(profButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(profilButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(srcEleveButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(myProfilButton))
+                                        .addComponent(disciplinesButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGap(18, 18, 18)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelBaseLayout.createSequentialGroup()
-                                .addComponent(directeurButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(deconnexionButton)))))
-                .addGap(18, 18, 18))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         panelBaseLayout.setVerticalGroup(
             panelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,6 +286,7 @@ public class Graphique extends javax.swing.JFrame {
                     .addComponent(nomLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                     .addGroup(panelBaseLayout.createSequentialGroup()
                         .addComponent(fieldSrcEleve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -189,14 +294,15 @@ public class Graphique extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(profilButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(profButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(myProfilButton))
+                        .addComponent(disciplinesButton))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(directeurButton)
-                    .addComponent(deconnexionButton))
+                    .addComponent(deconnexionButton)
+                    .addComponent(suppEnsButton)
+                    .addComponent(suppEleveButton)
+                    .addComponent(saveBDDButtin))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -288,18 +394,27 @@ public class Graphique extends javax.swing.JFrame {
             }
         });
 
+        modifEleveButton.setText("Modifier Eleve");
+        modifEleveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modifEleveButtonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout profilPanelLayout = new javax.swing.GroupLayout(profilPanel);
         profilPanel.setLayout(profilPanelLayout);
         profilPanelLayout.setHorizontalGroup(
             profilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(profilPanelLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(profilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(profilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(profilPanelLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
-                        .addGroup(profilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(backListeElvButton)
-                            .addComponent(bulletinButton))
+                        .addComponent(bulletinButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(backListeElvButton)
+                        .addGap(27, 27, 27)
+                        .addComponent(modifEleveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(profilPanelLayout.createSequentialGroup()
                         .addGroup(profilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -307,8 +422,15 @@ public class Graphique extends javax.swing.JFrame {
                             .addGroup(profilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(nomProfilLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(prenomProfilLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nomPrenomProfilLabel)
+                        .addGroup(profilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(profilPanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nomPrenomProfilLabel))
+                            .addGroup(profilPanelLayout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addGroup(profilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(newNomField, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                                    .addComponent(newPrenomField))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
@@ -322,18 +444,23 @@ public class Graphique extends javax.swing.JFrame {
                         .addGroup(profilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(profilLabel)
                             .addComponent(nomPrenomProfilLabel))
-                        .addGap(40, 40, 40)
-                        .addComponent(prenomProfilLabel)
+                        .addGap(37, 37, 37)
+                        .addGroup(profilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(prenomProfilLabel)
+                            .addComponent(newPrenomField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nomProfilLabel))
+                        .addGroup(profilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nomProfilLabel)
+                            .addComponent(newNomField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(profilPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(bulletinButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(backListeElvButton)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGroup(profilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bulletinButton)
+                    .addComponent(backListeElvButton)
+                    .addComponent(modifEleveButton))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         tabBulletin.setModel(new javax.swing.table.DefaultTableModel(
@@ -352,9 +479,20 @@ public class Graphique extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tabBulletin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabBulletinMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tabBulletin);
 
         detailButton.setText("Voir Details");
+        detailButton.setEnabled(false);
+        detailButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                detailButtonMouseClicked(evt);
+            }
+        });
 
         backProfilButton.setText("Retour Profil");
         backProfilButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -368,11 +506,11 @@ public class Graphique extends javax.swing.JFrame {
         bulletinPanelLayout.setHorizontalGroup(
             bulletinPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bulletinPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(bulletinPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(detailButton)
-                    .addComponent(backProfilButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(detailButton, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(backProfilButton, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(371, 371, 371))
         );
@@ -381,14 +519,14 @@ public class Graphique extends javax.swing.JFrame {
             .addGroup(bulletinPanelLayout.createSequentialGroup()
                 .addGroup(bulletinPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bulletinPanelLayout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addComponent(detailButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(backProfilButton))
+                        .addGap(7, 7, 7)
+                        .addComponent(backProfilButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(detailButton))
                     .addGroup(bulletinPanelLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(66, Short.MAX_VALUE))
+                        .addGap(19, 19, 19)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         tabDetail.setModel(new javax.swing.table.DefaultTableModel(
@@ -396,7 +534,7 @@ public class Graphique extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Enseignement", "Moyenne", "Coefficient", "Appreciation"
+                "ID Detail", "Enseignement", "Moyenne", "Coefficient", "Appreciation"
             }
         ) {
             Class[] types = new Class [] {
@@ -407,11 +545,27 @@ public class Graphique extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tabDetail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabDetailMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(tabDetail);
 
-        ajouterNoteButton.setText("Ajouter Note");
+        noteButton.setText("Voir Notes");
+        noteButton.setEnabled(false);
+        noteButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                noteButtonMouseClicked(evt);
+            }
+        });
 
-        modifNoteButton.setText("Modifier Note");
+        backBulletinButton.setText("Retour Bulletins");
+        backBulletinButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backBulletinButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout detailPanelLayout = new javax.swing.GroupLayout(detailPanel);
         detailPanel.setLayout(detailPanelLayout);
@@ -419,12 +573,12 @@ public class Graphique extends javax.swing.JFrame {
             detailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(detailPanelLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(detailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(ajouterNoteButton)
-                    .addComponent(modifNoteButton))
+                .addGroup(detailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(backBulletinButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(noteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(42, 42, 42)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         detailPanelLayout.setVerticalGroup(
             detailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,10 +589,311 @@ public class Graphique extends javax.swing.JFrame {
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(detailPanelLayout.createSequentialGroup()
                         .addGap(42, 42, 42)
-                        .addComponent(ajouterNoteButton)
+                        .addComponent(noteButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(modifNoteButton)))
-                .addContainerGap(105, Short.MAX_VALUE))
+                        .addComponent(backBulletinButton)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        tabEvaluations.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Note", "Note", "Coefficient", "Appreciation"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Double.class, java.lang.Integer.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(tabEvaluations);
+
+        backDetailButton.setText("Retour Details");
+        backDetailButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backDetailButtonMouseClicked(evt);
+            }
+        });
+
+        modifNoteButton.setText("Modifier Note");
+
+        ajouterNoteButton.setText("Ajouter Note");
+
+        javax.swing.GroupLayout notesPanelLayout = new javax.swing.GroupLayout(notesPanel);
+        notesPanel.setLayout(notesPanelLayout);
+        notesPanelLayout.setHorizontalGroup(
+            notesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(notesPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(notesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(backDetailButton, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(modifNoteButton, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ajouterNoteButton, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
+        );
+        notesPanelLayout.setVerticalGroup(
+            notesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(notesPanelLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(notesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(notesPanelLayout.createSequentialGroup()
+                        .addComponent(backDetailButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(modifNoteButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ajouterNoteButton))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+
+        ifDirecteurLabel.setText("Interface Directeur");
+
+        addEleveButton.setText("Ajouter Eleve");
+        addEleveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addEleveButtonMouseClicked(evt);
+            }
+        });
+
+        addEnsButton.setText("Ajouter Enseignant");
+        addEnsButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addEnsButtonMouseClicked(evt);
+            }
+        });
+
+        addClassButton.setText("Ajouter Classe");
+        addClassButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addClassButtonMouseClicked(evt);
+            }
+        });
+
+        inscriptionEleveClasseButton.setText("Inscrire Eleve à Classe");
+        inscriptionEleveClasseButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                inscriptionEleveClasseButtonMouseClicked(evt);
+            }
+        });
+
+        jButton3.setText("Retour Liste Eleve");
+
+        nomAddEleveLabel.setText("Nom");
+
+        prenomAddEleveLabel.setText("Prenom");
+
+        eleveAjouteLabel.setText("Eleve Ajoute");
+        eleveAjouteLabel.setVisible(false);
+
+        ensAjouteLabel.setText("Enseignant Ajoute");
+        ensAjouteLabel.setVisible(false);
+
+        niveauxBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        nomClasseLabel.setText("Nom Classe");
+
+        classeAjouteLabel.setText("Classe Ajoute");
+        classeAjouteLabel.setVisible(false);
+
+        anneeBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout directeurPanelLayout = new javax.swing.GroupLayout(directeurPanel);
+        directeurPanel.setLayout(directeurPanelLayout);
+        directeurPanelLayout.setHorizontalGroup(
+            directeurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(directeurPanelLayout.createSequentialGroup()
+                .addGroup(directeurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(directeurPanelLayout.createSequentialGroup()
+                        .addGroup(directeurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(directeurPanelLayout.createSequentialGroup()
+                                .addGroup(directeurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(directeurPanelLayout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addGroup(directeurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(nomAddEnsField, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                                            .addComponent(nomAddEleveField)))
+                                    .addGroup(directeurPanelLayout.createSequentialGroup()
+                                        .addGap(22, 22, 22)
+                                        .addComponent(nomAddEleveLabel)))
+                                .addGroup(directeurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(directeurPanelLayout.createSequentialGroup()
+                                        .addGap(51, 51, 51)
+                                        .addComponent(prenomAddEleveLabel))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, directeurPanelLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(directeurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(prenomAddEleveField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                                            .addComponent(prenomAddEnsField, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                            .addGroup(directeurPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(newClasseField, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(niveauxBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(anneeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(directeurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(directeurPanelLayout.createSequentialGroup()
+                                .addComponent(addEleveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(eleveAjouteLabel)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(directeurPanelLayout.createSequentialGroup()
+                                .addGroup(directeurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(addEnsButton)
+                                    .addComponent(addClassButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(directeurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(classeAjouteLabel)
+                                    .addComponent(ensAjouteLabel))))
+                        .addGap(40, 40, 40))
+                    .addGroup(directeurPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(directeurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ifDirecteurLabel)
+                            .addComponent(nomClasseLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(directeurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inscriptionEleveClasseButton)
+                            .addComponent(jButton3))
+                        .addGap(95, 95, 95)))
+                .addContainerGap())
+        );
+        directeurPanelLayout.setVerticalGroup(
+            directeurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, directeurPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(directeurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ifDirecteurLabel)
+                    .addComponent(inscriptionEleveClasseButton, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(11, 11, 11)
+                .addGroup(directeurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton3)
+                    .addComponent(nomClasseLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(directeurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addClassButton)
+                    .addComponent(niveauxBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(newClasseField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(classeAjouteLabel)
+                    .addComponent(anneeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(directeurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(prenomAddEleveLabel)
+                    .addComponent(nomAddEleveLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(directeurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addEnsButton)
+                    .addComponent(nomAddEnsField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(prenomAddEnsField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ensAjouteLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(directeurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nomAddEleveField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(prenomAddEleveField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addEleveButton)
+                    .addComponent(eleveAjouteLabel))
+                .addGap(12, 12, 12))
+        );
+
+        tabClasse.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Classe", "Nom Classe", "Niveau", "Annee"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tabClasse.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabClasseMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(tabClasse);
+
+        tabEleveInscription.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Indentifiant", "Nom", "Prenom"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tabEleveInscription.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabEleveInscriptionMouseClicked(evt);
+            }
+        });
+        jScrollPane8.setViewportView(tabEleveInscription);
+
+        backIfDirecteurButton.setText("Retour Interface Directeur");
+        backIfDirecteurButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backIfDirecteurButtonMouseClicked(evt);
+            }
+        });
+
+        trueInscriEleveClasseButton.setText("Inscrire");
+        trueInscriEleveClasseButton.setEnabled(false);
+        trueInscriEleveClasseButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                trueInscriEleveClasseButtonMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout InscriptionPanelLayout = new javax.swing.GroupLayout(InscriptionPanel);
+        InscriptionPanel.setLayout(InscriptionPanelLayout);
+        InscriptionPanelLayout.setHorizontalGroup(
+            InscriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(InscriptionPanelLayout.createSequentialGroup()
+                .addGroup(InscriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(InscriptionPanelLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(InscriptionPanelLayout.createSequentialGroup()
+                        .addGap(85, 85, 85)
+                        .addComponent(backIfDirecteurButton)
+                        .addGap(104, 104, 104)
+                        .addComponent(trueInscriEleveClasseButton)))
+                .addContainerGap(50, Short.MAX_VALUE))
+        );
+        InscriptionPanelLayout.setVerticalGroup(
+            InscriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(InscriptionPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(InscriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(InscriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(backIfDirecteurButton)
+                    .addComponent(trueInscriEleveClasseButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -446,35 +901,58 @@ public class Graphique extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(profilPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelConnexion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bulletinPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(detailPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(1229, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(directeurPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33)
+                                .addComponent(panelConnexion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(bulletinPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(profilPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(detailPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(InscriptionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(notesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(711, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(profilPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(190, 190, 190))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(panelBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(49, 49, 49)
+                                .addComponent(directeurPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(303, 303, 303)
+                                .addComponent(panelConnexion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(28, 28, 28)
+                        .addComponent(bulletinPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(panelConnexion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                        .addComponent(detailPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)
+                        .addComponent(InscriptionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bulletinPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(147, 147, 147))))
+                        .addComponent(detailPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(notesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(profilPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -501,9 +979,15 @@ public class Graphique extends javax.swing.JFrame {
             panelBase.setVisible(true);
             this.personneCo = P;
             nomLabel.setText(personneCo.getPrenom() + " " + personneCo.getNom());
-            if (personneCo.getAcces() == 2) { directeurButton.setEnabled(true); }
+            if (personneCo.getAcces() == 2) directeurButton.setEnabled(true);
+            else {
+                suppEleveButton.setEnabled(false);
+                suppEnsButton.setEnabled(false);
+            }
         }
         else coFailLabel.setVisible(true);
+        
+        
     }//GEN-LAST:event_connexionButtonMouseClicked
 
     private void profilButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profilButtonMouseClicked
@@ -513,9 +997,21 @@ public class Graphique extends javax.swing.JFrame {
         
         panelBase.setVisible(false);
         profilPanel.setVisible(true);
-        prenomProfilLabel.setText(prenom);
-        nomProfilLabel.setText(nom);
+//        prenomProfilLabel.setText(prenom);
+//        nomProfilLabel.setText(nom);
         nomPrenomProfilLabel.setText(nom + " " + prenom);
+        newPrenomField.setText(prenom);
+        newNomField.setText(nom);
+        if (this.personneCo != null && personneCo.getAcces() == 2) {
+            newPrenomField.setEnabled(true);
+            newNomField.setEnabled(true);
+            modifEleveButton.setEnabled(true);
+        } else {
+            newPrenomField.setEnabled(false);
+            newNomField.setEnabled(false);
+            modifEleveButton.setEnabled(false);
+        }
+
         
         A.afficherClassesInscritesEleve(tabInscription, ecole.getEleves().get(this.selectedEleveID), ecole.getNiveaux());
     }//GEN-LAST:event_profilButtonMouseClicked
@@ -524,6 +1020,7 @@ public class Graphique extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.selectedEleveID = (int) tabEleves.getValueAt(tabEleves.getSelectedRow(), 0);
         profilButton.setEnabled(true);
+       if (this.personneCo != null && this.personneCo.getAcces() == 2) suppEleveButton.setEnabled(true);
     }//GEN-LAST:event_tabElevesMouseClicked
 
     private void backListeElvButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backListeElvButtonMouseClicked
@@ -531,11 +1028,12 @@ public class Graphique extends javax.swing.JFrame {
         panelBase.setVisible(true);
         profilPanel.setVisible(false);
         bulletinButton.setEnabled(false);
+        A.afficherElevesJTable(tabEleves, ecole.getEleves());
     }//GEN-LAST:event_backListeElvButtonMouseClicked
 
     private void tabInscriptionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabInscriptionMouseClicked
         // TODO add your handling code here:
-        this.selectedInscriptionID = (int) tabEleves.getValueAt(tabEleves.getSelectedRow(), 0);
+        this.selectedInscriptionID = (int) tabInscription.getValueAt(tabInscription.getSelectedRow(), 0);
         bulletinButton.setEnabled(true);
     }//GEN-LAST:event_tabInscriptionMouseClicked
 
@@ -558,7 +1056,192 @@ public class Graphique extends javax.swing.JFrame {
     private void backProfilButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backProfilButtonMouseClicked
         // TODO add your handling code here:
         profilPanel.setVisible(true);
+        bulletinPanel.setVisible(false);
+        detailButton.setEnabled(false);
     }//GEN-LAST:event_backProfilButtonMouseClicked
+
+    private void tabBulletinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabBulletinMouseClicked
+        // TODO add your handling code here:
+        this.selectedBulletinID = (int) tabBulletin.getValueAt(tabBulletin.getSelectedRow(), 0);
+        detailButton.setEnabled(true);
+    }//GEN-LAST:event_tabBulletinMouseClicked
+
+    private void detailButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_detailButtonMouseClicked
+        // TODO add your handling code here:
+        bulletinPanel.setVisible(false);
+        detailPanel.setVisible(true);
+        A.afficherDetailsBulletin(tabDetail, ecole.getEleves().get(this.selectedEleveID).getInscriptions().get(this.selectedInscriptionID).getBulletins().get(this.selectedBulletinID), ecole.getEnseignants(), ecole.getDisciplines());
+    }//GEN-LAST:event_detailButtonMouseClicked
+
+    private void backBulletinButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBulletinButtonMouseClicked
+        // TODO add your handling code here:
+        bulletinPanel.setVisible(true);
+        detailPanel.setVisible(false);
+        detailButton.setEnabled(false);
+    }//GEN-LAST:event_backBulletinButtonMouseClicked
+
+    private void tabDetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabDetailMouseClicked
+        // TODO add your handling code here:
+        this.selectedDetailID = (int) tabDetail.getValueAt(tabDetail.getSelectedRow(), 0);
+        noteButton.setEnabled(true);
+    }//GEN-LAST:event_tabDetailMouseClicked
+
+    private void noteButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_noteButtonMouseClicked
+        // TODO add your handling code here:
+        detailPanel.setVisible(false);
+        notesPanel.setVisible(true);
+        A.afficherNotesDetails(tabEvaluations, ecole.getEleves().get(this.selectedEleveID).getInscriptions().get(this.selectedInscriptionID).getBulletins().get(this.selectedBulletinID).getDetailsBulletin().get(selectedDetailID));
+        
+    }//GEN-LAST:event_noteButtonMouseClicked
+
+    private void backDetailButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backDetailButtonMouseClicked
+        // TODO add your handling code here:
+        detailPanel.setVisible(true);
+        notesPanel.setVisible(false);
+        noteButton.setEnabled(false);
+    }//GEN-LAST:event_backDetailButtonMouseClicked
+
+    private void addEleveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addEleveButtonMouseClicked
+        // TODO add your handling code here:
+        String nom =  nomAddEleveField.getText();
+        String prenom =  prenomAddEleveField.getText();
+        
+        if (!nomAddEleveField.getText().isEmpty() && !prenomAddEleveField.getText().isEmpty()) {
+            ecole.ajouterPersonne(new Eleve(ecole.getSingleCleMax("Personne"), 0, nom, prenom), 1);
+            eleveAjouteLabel.setVisible(true);
+            A.afficherElevesJTable(tabEleves, this.ecole.getEleves());
+        } else eleveAjouteLabel.setVisible(false);
+    }//GEN-LAST:event_addEleveButtonMouseClicked
+
+    private void addEnsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addEnsButtonMouseClicked
+        // TODO add your handling code here:
+        String nom =  nomAddEnsField.getText();
+        String prenom =  prenomAddEnsField.getText();
+        
+        if (!nomAddEnsField.getText().isEmpty() && !prenomAddEnsField.getText().isEmpty()) {
+            ecole.ajouterPersonne(new Enseignant(ecole.getSingleCleMax("Personne"), 0, nom, prenom), 3);
+            ensAjouteLabel.setVisible(true);
+        } else ensAjouteLabel.setVisible(false);
+    }//GEN-LAST:event_addEnsButtonMouseClicked
+
+    private void suppEleveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_suppEleveButtonMouseClicked
+        // TODO add your handling code here:
+        try {
+            String prenom = ecole.getEleves().get(selectedEleveID).getPrenom();
+            String nom = ecole.getEleves().get(selectedEleveID).getNom();
+            if (JOptionPane.showConfirmDialog(null, "Souhaitez-vous vraiment supprimer " + prenom + " " + nom + " ?\nCeci entrainera la suppresion de toutes ses inscriptions\nainsi que de toutes ses notes.", "Supression d'élève",
+                    JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION){
+
+                ecole.supprimerPersonne(selectedEleveID, 1);  
+                A.afficherElevesJTable(tabEleves, this.ecole.getEleves());
+            }
+        } catch(NullPointerException ex) { System.out.println("Aucun Eleve Choisi"); }
+
+       
+    }//GEN-LAST:event_suppEleveButtonMouseClicked
+
+    private void suppEnsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_suppEnsButtonMouseClicked
+        // TODO add your handling code here:
+        try {
+            String prenom = ecole.getEnseignants().get(selectedEnseignantID).getPrenom();
+            String nom = ecole.getEnseignants().get(selectedEnseignantID).getNom();
+            if (JOptionPane.showConfirmDialog(null, "Souhaitez-vous vraiment supprimer " + prenom + " " + nom + " ?\nCeci entrainera la suppresion de tous\nses enseignements par conséquent toutes les notes de chaque élève ayant cet enseignement.", "Supression d'enseignant",
+                    JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION){
+
+                ecole.supprimerPersonne(selectedEnseignantID, 3);  
+                A.afficherEnseignantsJTable(tabEnseignants, this.ecole.getEnseignants());
+            }
+        } catch(NullPointerException ex) { System.out.println("Aucun Enseignant Choisi"); }
+    }//GEN-LAST:event_suppEnsButtonMouseClicked
+
+    private void tabEnseignantsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabEnseignantsMouseClicked
+        // TODO add your handling code here:
+        this.selectedEnseignantID = (int) tabEnseignants.getValueAt(tabEnseignants.getSelectedRow(), 0);
+        System.out.println(selectedEnseignantID);
+        if (this.personneCo != null && this.personneCo.getAcces() == 2) suppEnsButton.setEnabled(true);
+        
+    }//GEN-LAST:event_tabEnseignantsMouseClicked
+
+    private void modifEleveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modifEleveButtonMouseClicked
+        // TODO add your handling code here:
+        String newNom = newNomField.getText();
+        String newPrenom = newPrenomField.getText();
+        this.ecole.getEleves().get(selectedEleveID).setNom(newNom);
+        this.ecole.getEleves().get(selectedEleveID).setPrenom(newPrenom);
+        nomPrenomProfilLabel.setText(newNom + " " + newPrenom);
+    }//GEN-LAST:event_modifEleveButtonMouseClicked
+
+    private void saveBDDButtinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveBDDButtinMouseClicked
+        // TODO add your handling code here:
+        this.ecole.saveEcole();
+        this.ecole = new Ecole();
+    }//GEN-LAST:event_saveBDDButtinMouseClicked
+
+    private void addClassButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addClassButtonMouseClicked
+        // TODO add your handling code here:
+        String nomNiveau = niveauxBox.getSelectedItem().toString();
+        String annee = anneeBox.getSelectedItem().toString();
+        int IDAnnee = C.stringToInt(annee);
+        String nomClasse;
+        if (!newClasseField.getText().isEmpty())  {
+            nomClasse = newClasseField.getText();
+            classeAjouteLabel.setVisible(true);
+            int IDNiveau = C.getNiveauFromNom(nomNiveau, ecole.getNiveaux()).getID();
+            ecole.getNiveaux().get(IDNiveau).ajouterClasse(ecole.getSingleCleMax("Classe"), new Classe(ecole.getSingleCleMax("Classe"), IDNiveau, IDAnnee, nomClasse));
+            ecole.incrementCleMax("Classe");
+        }
+    }//GEN-LAST:event_addClassButtonMouseClicked
+
+    private void inscriptionEleveClasseButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inscriptionEleveClasseButtonMouseClicked
+        // TODO add your handling code here:
+        InscriptionPanel.setVisible(true);
+        A.afficherElevesJTable(tabEleveInscription, ecole.getEleves());
+        A.afficherClassesJTable(tabClasse, ecole.getNiveaux());
+    }//GEN-LAST:event_inscriptionEleveClasseButtonMouseClicked
+
+    private void trueInscriEleveClasseButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_trueInscriEleveClasseButtonMouseClicked
+        // TODO add your handling code here:
+        int ID_inscri = ecole.getSingleCleMax("Inscription");
+        int ID_B = ecole.getSingleCleMax("Bulletin");
+        int ID_trimestres[] = new int[3];
+        int nb = 0;
+        Annee a = C.getAnneeFromID(selectedClasseID, ecole.getAnnees(), ecole.getNiveaux());
+        for (Trimestre t : a.getTrimestres().values()) {
+            ID_trimestres[nb] = t.getID();
+            nb++;
+        }
+        ecole.getEleves().get(selectedInscriEleveID).ajouterInscription(ID_inscri, new Inscription(ID_inscri, selectedInscriEleveID, selectedClasseID));
+        for (int i = 0; i < 3; ++i) {
+            ecole.getEleves().get(selectedInscriEleveID).getInscriptions().get(ID_inscri).ajouterBulletin(ID_B, new Bulletin(ID_B, ID_inscri, ID_trimestres[i], ""));
+            ecole.incrementCleMax("Bulletin");
+            ID_B = ecole.getSingleCleMax("Bulletin");
+        }
+        ecole.incrementCleMax("Inscription");
+        
+        
+    }//GEN-LAST:event_trueInscriEleveClasseButtonMouseClicked
+
+    private void backIfDirecteurButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backIfDirecteurButtonMouseClicked
+        // TODO add your handling code here:
+        directeurPanel.setVisible(true);
+        InscriptionPanel.setVisible(false);
+        
+    }//GEN-LAST:event_backIfDirecteurButtonMouseClicked
+
+    private void tabEleveInscriptionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabEleveInscriptionMouseClicked
+        // TODO add your handling code here:
+        this.selectedInscriEleveID = (int) tabEleveInscription.getValueAt(tabEleveInscription.getSelectedRow(), 0);
+        trueInscriEleveClasseButton.setEnabled(C.checkClasseEleve(selectedClasseID, ecole.getEleves().get(selectedInscriEleveID).getInscriptions()));
+        
+    }//GEN-LAST:event_tabEleveInscriptionMouseClicked
+
+    private void tabClasseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabClasseMouseClicked
+        // TODO add your handling code here:
+        this.selectedClasseID = (int) tabClasse.getValueAt(tabClasse.getSelectedRow(), 0);
+        trueInscriEleveClasseButton.setEnabled(C.checkClasseEleve(selectedClasseID, ecole.getEleves().get(selectedInscriEleveID).getInscriptions()));
+
+        
+    }//GEN-LAST:event_tabClasseMouseClicked
 
     /**
      * @param args the command line arguments
@@ -596,41 +1279,81 @@ public class Graphique extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel InscriptionPanel;
+    private javax.swing.JButton addClassButton;
+    private javax.swing.JButton addEleveButton;
+    private javax.swing.JButton addEnsButton;
     private javax.swing.JButton ajouterNoteButton;
+    private javax.swing.JComboBox<String> anneeBox;
+    private javax.swing.JButton backBulletinButton;
+    private javax.swing.JButton backDetailButton;
+    private javax.swing.JButton backIfDirecteurButton;
     private javax.swing.JButton backListeElvButton;
     private javax.swing.JButton backProfilButton;
     private javax.swing.JButton bulletinButton;
     private javax.swing.JPanel bulletinPanel;
+    private javax.swing.JLabel classeAjouteLabel;
     private javax.swing.JLabel coFailLabel;
     private javax.swing.JButton connexionButton;
     private javax.swing.JButton deconnexionButton;
     private javax.swing.JButton detailButton;
     private javax.swing.JPanel detailPanel;
     private javax.swing.JButton directeurButton;
+    private javax.swing.JPanel directeurPanel;
+    private javax.swing.JButton disciplinesButton;
+    private javax.swing.JLabel eleveAjouteLabel;
+    private javax.swing.JLabel ensAjouteLabel;
     private javax.swing.JFormattedTextField fieldIDConnexion;
     private javax.swing.JFormattedTextField fieldSrcEleve;
     private javax.swing.JLabel helloLabel;
+    private javax.swing.JLabel ifDirecteurLabel;
+    private javax.swing.JButton inscriptionEleveClasseButton;
+    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JLabel labelIDConnexion;
+    private javax.swing.JButton modifEleveButton;
     private javax.swing.JButton modifNoteButton;
-    private javax.swing.JButton myProfilButton;
+    private javax.swing.JTextField newClasseField;
+    private javax.swing.JTextField newNomField;
+    private javax.swing.JTextField newPrenomField;
+    private javax.swing.JComboBox<String> niveauxBox;
+    private javax.swing.JFormattedTextField nomAddEleveField;
+    private javax.swing.JLabel nomAddEleveLabel;
+    private javax.swing.JFormattedTextField nomAddEnsField;
+    private javax.swing.JLabel nomClasseLabel;
     private javax.swing.JLabel nomLabel;
     private javax.swing.JLabel nomPrenomProfilLabel;
     private javax.swing.JLabel nomProfilLabel;
+    private javax.swing.JButton noteButton;
+    private javax.swing.JPanel notesPanel;
     private javax.swing.JPanel panelBase;
     private javax.swing.JPanel panelConnexion;
+    private javax.swing.JFormattedTextField prenomAddEleveField;
+    private javax.swing.JLabel prenomAddEleveLabel;
+    private javax.swing.JFormattedTextField prenomAddEnsField;
     private javax.swing.JLabel prenomProfilLabel;
-    private javax.swing.JButton profButton;
     private javax.swing.JButton profilButton;
     private javax.swing.JLabel profilLabel;
     private javax.swing.JPanel profilPanel;
+    private javax.swing.JButton saveBDDButtin;
     private javax.swing.JButton srcEleveButton;
+    private javax.swing.JButton suppEleveButton;
+    private javax.swing.JButton suppEnsButton;
     private javax.swing.JTable tabBulletin;
+    private javax.swing.JTable tabClasse;
     private javax.swing.JTable tabDetail;
+    private javax.swing.JTable tabEleveInscription;
     private javax.swing.JTable tabEleves;
+    private javax.swing.JTable tabEnseignants;
+    private javax.swing.JTable tabEvaluations;
     private javax.swing.JTable tabInscription;
+    private javax.swing.JButton trueInscriEleveClasseButton;
     // End of variables declaration//GEN-END:variables
 }
