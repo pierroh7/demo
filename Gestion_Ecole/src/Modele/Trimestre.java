@@ -18,6 +18,7 @@ public class Trimestre {
     private String debut;
     private String fin;
     
+    public Trimestre() {}    
     public Trimestre(int _ID, int _ID_Annee, int _numero, String _debut, String _fin) {
         this.ID = _ID;
         this.ID_Annee = _ID_Annee;
@@ -25,7 +26,7 @@ public class Trimestre {
         this.debut = _debut;
         this.fin = _fin;
     }
-
+    
     public int getID() { return this.ID; }
     public int getID_Annee() { return this.ID_Annee; }
     public int getNumero() { return this.numero; }

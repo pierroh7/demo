@@ -14,8 +14,7 @@ public class Directeur extends Personne {
     public Directeur(int _ID, int _acces, String _nom, String _prenom) {
         super(_ID, _acces, _nom, _prenom);
     }
-
-    public Directeur(Eleve e) {
-        super(e.getID(), e.getAcces(), e.getNom(), e.getPrenom());
+    public Directeur(Directeur d) {
+        super(d.getID(), d.getAcces(), d.getNom(), d.getPrenom());
     }    
 }

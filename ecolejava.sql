@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 08 juin 2019 à 19:30
+-- Généré le :  Dim 09 juin 2019 à 14:27
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.14
 
@@ -58,14 +58,16 @@ CREATE TABLE IF NOT EXISTS `bulletin` (
   PRIMARY KEY (`ID`),
   KEY `IDInscription` (`IDInscription`),
   KEY `IDTrimestre` (`IDTrimestre`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `bulletin`
 --
 
 INSERT INTO `bulletin` (`ID`, `IDInscription`, `IDTrimestre`, `Appreciation`) VALUES
-(1, 1, 1, 'Bon eleve');
+(1, 1, 1, 'Bon eleve'),
+(2, 1, 2, 'Bon eleve encore'),
+(3, 1, 3, 'bon eleve x3');
 
 -- --------------------------------------------------------
 
@@ -104,18 +106,21 @@ CREATE TABLE IF NOT EXISTS `detailbulletin` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `IDEnseignement` int(11) NOT NULL,
   `IDBulletin` int(11) NOT NULL,
+  `Coefficient` int(11) NOT NULL,
   `Appreciation` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `IDEnseignement` (`IDEnseignement`),
   KEY `IDBulletin` (`IDBulletin`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `detailbulletin`
 --
 
-INSERT INTO `detailbulletin` (`ID`, `IDEnseignement`, `IDBulletin`, `Appreciation`) VALUES
-(1, 1, 1, 'Bon en math');
+INSERT INTO `detailbulletin` (`ID`, `IDEnseignement`, `IDBulletin`, `Coefficient`, `Appreciation`) VALUES
+(1, 1, 1, 2, 'Bon en math'),
+(2, 2, 2, 3, 'Bon'),
+(3, 1, 3, 1, 'Bon');
 
 -- --------------------------------------------------------
 
@@ -182,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `evaluation` (
   `Appreciation` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `IDDetailBulletin` (`IDDetailBulletin`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `evaluation`
@@ -191,7 +196,13 @@ CREATE TABLE IF NOT EXISTS `evaluation` (
 INSERT INTO `evaluation` (`ID`, `IDDetailBulletin`, `Note`, `Coefficient`, `Appreciation`) VALUES
 (1, 1, 20, 2, ''),
 (2, 1, 19, 3, ''),
-(3, 1, 18, 1, '');
+(3, 1, 18, 1, ''),
+(4, 2, 15, 3, 'Pas mal'),
+(5, 2, 19, 1, 'tres bon'),
+(6, 2, 11, 2, 'assez bien'),
+(7, 3, 7, 3, 'insuffisant'),
+(8, 3, 13, 2, 'bien'),
+(9, 3, 20, 2, 'excellent');
 
 -- --------------------------------------------------------
 

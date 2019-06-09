@@ -4,28 +4,31 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/EvaluationDAO.java</file>
-            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/PersonneDAO.java</file>
             <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/BulletinDAO.java</file>
             <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Connexion.java</file>
             <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Affichage/Affichage.java</file>
             <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Enseignement.java</file>
             <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/EnseignantDAO.java</file>
             <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/InscriptionDAO.java</file>
-            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/TrismestreDAO.java</file>
+            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Controleur/Graphique.java</file>
             <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Classe.java</file>
+            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Annee.java</file>
+            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Controleur/Controleur.java</file>
             <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/ClasseDAO.java</file>
             <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Directeur.java</file>
             <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Bulletin.java</file>
             <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/DetailBulletinDAO.java</file>
             <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/DAO.java</file>
-            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Niveau.java</file>
+            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/AnneeDAO.java</file>
             <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Eleve.java</file>
+            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Niveau.java</file>
             <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/DAOFactory.java</file>
-            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/EnseignementDAO.java</file>
             <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Inscription.java</file>
+            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/EnseignementDAO.java</file>
+            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/TrimestreDAO.java</file>
             <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/DisciplineDAO.java</file>
-            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Ecole.java</file>
             <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/EcoleDAO.java</file>
+            <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Ecole.java</file>
             <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Discipline.java</file>
             <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/Evaluation.java</file>
             <file>file:/C:/Users/Nathan/Documents/NetBeansProjects/ProjetJava/src/Modele/DetailBulletin.java</file>
